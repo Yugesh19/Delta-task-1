@@ -25,5 +25,9 @@
 
 td:hover {
   background: var(--hover);
-  cursor: pointer
+  cursor: pointer;
+}
+
+[data-tank="true"]{
+  background: blue; 
 }
