@@ -1,0 +1,29 @@
+:root {
+  --size:      800px;
+  --backcolor: darkslategray;
+  --dark:      grey;
+  --light:     white;
+  --legend:    azure;
+  --hover:     lightgreen
+}
+.board {
+  width: var(--size);
+  height: var(--size);
+  border: 32px solid;
+  border-color: var(--backcolor);
+  border-radius: 0.2rem;
+}
+.square {
+  border: 1px black solid;
+}
+.white{
+  background: var(--light);
+}
+.black{
+  background: var(--dark)
+}
+
+td:hover {
+  background: var(--hover);
+  cursor: pointer
+}
