@@ -11,7 +11,7 @@
   height: var(--size);
   border: 32px solid;
   border-color: var(--backcolor);
-  border-radius: 0.2rem;
+  border-radius: 0.5rem;
 }
 .square {
   border: 1px black solid;
@@ -37,4 +37,16 @@
 
 [data-cannon="true"]{
   background: brown;
+}
+
+[data-rico="true"]{
+  background: orange;
+}
+
+[data-srico="true"]{
+  background: pink;
+}
+
+[data-titan="true"]{
+  background: rgb(16, 2, 77);
 }
