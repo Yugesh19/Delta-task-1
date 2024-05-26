@@ -4,6 +4,7 @@ table.className = "board";
 let a = 1;
 let coords = [];
 let currentplayer = 1;
+let selectedPiece = null;  // Variable to track the selected piece
 
 boardCreator()
 
@@ -27,7 +28,7 @@ function boardCreator(){
             td.dataset.highlight = false;
 
             td.addEventListener("click", function (e) {
-            checkPiece(this);
+                handleClick(this);
             });
 
             td.className = (i % 2 === j % 2) ? "white square" : "black square";
@@ -42,12 +43,10 @@ function boardCreator(){
 document.querySelector("div").appendChild(table);
 setInitialPieces();
 
-/*start*/
-
 function setInitialPieces() {
     // Cannons at fixed positions
-    setPiece(1, 1, 'cannon', 1);  // Player 1 cannon at bottom left
-    setPiece(8, 8, 'cannon', 2);  // Player 2 cannon at top right
+    setPiece(1, 4, 'cannon', 1);  // Player 1 cannon at bottom left
+    setPiece(8, 5, 'cannon', 2);  // Player 2 cannon at top right
 
     // Randomly place other pieces for Player 1
     let player1Pieces = ['tank', 'rico', 'srico', 'titan'];
@@ -82,54 +81,77 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-/*stop*/
-
-
-
-let ball = document.querySelector(".box1");
-ball.setAttribute("data-tank", true);
-
-document.querySelector(".box62").setAttribute("data-cannon",true);
-
-
-
-function checkPiece(s) {
-    check = (s.getAttribute("data-tank") === "true" || s.getAttribute("data-titan") === "true" || s.getAttribute("data-rico") === "true" || s.getAttribute("data-srico") === "true"|| s.getAttribute("data-cannon") === "true")
-
-    if((s.getAttribute("data-highlight") === "true")&&(!check)){
-        console.log("hello")
+function handleClick(cell) {
+    if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
+        movePiece(cell);
+    } else {
+        checkPiece(cell);
     }
+}
+
+function checkPiece(cell) {
+    let check = (cell.getAttribute("data-tank") === "true" || cell.getAttribute("data-titan") === "true" || cell.getAttribute("data-rico") === "true" || cell.getAttribute("data-srico") === "true" || cell.getAttribute("data-cannon") === "true");
 
     if (check) {
-        unhigh = document.getElementsByClassName("square")
-        Array.from(unhigh).forEach(element => element.setAttribute("data-highlight",false))
+        unhigh = document.getElementsByClassName("square");
+        Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
         
-        let row = Number(s.getAttribute("data-row"));
-        let col = Number(s.getAttribute("data-col"));
-        if(s.getAttribute("data-cannon") !== "true"){
+        selectedPiece = cell;  // Store the selected piece
+
+        let row = Number(cell.getAttribute("data-row"));
+        let col = Number(cell.getAttribute("data-col"));
+        let neighbors;
+        if (cell.getAttribute("data-cannon") !== "true") {
             neighbors = [
                 [row - 1, col - 1], [row - 1, col], [row - 1, col + 1],
                 [row, col + 1], [row + 1, col + 1], [row + 1, col],
                 [row + 1, col - 1], [row, col - 1]
             ];
-        }
-        else{
-            neighbors = [[row, col-1],[row,col+1]];
+        } else {
+            neighbors = [[row, col - 1], [row, col + 1]];
         }
         neighbors = neighbors.filter(([r, c]) => r >= 1 && r <= 8 && c >= 1 && c <= 8);
 
         neighbors.forEach(([r, c]) => {
-            let cell = document.querySelector(`td[data-row='${r}'][data-col='${c}']`);
-            if (cell) {
-                // Here you can apply any logic to the cell, like changing its class or dataset attributes
-                cell.setAttribute("data-highlight",true);
+            let neighborCell = document.querySelector(`td[data-row='${r}'][data-col='${c}']`);
+            if (neighborCell && neighborCell.getAttribute("data-player") == 0) {  // Highlight only empty cells
+                neighborCell.setAttribute("data-highlight", true);
             }
         });
+    } else {
+        let unhigh = document.getElementsByClassName("square");
+        Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+        selectedPiece = null;  // Deselect the piece
     }
-    else{
-        unhigh = document.getElementsByClassName("square")
-        Array.from(unhigh).forEach(element => element.setAttribute("data-highlight",false))
-    }
-    
+}
+
+function movePiece(targetCell) {
+    if (!selectedPiece) return;
+
+    // Move piece data attributes
+    let pieceTypes = ['tank', 'rico', 'srico', 'titan', 'cannon'];
+    pieceTypes.forEach(piece => {
+        if (selectedPiece.getAttribute(`data-${piece}`) === "true") {
+            targetCell.setAttribute(`data-${piece}`, true);
+            selectedPiece.setAttribute(`data-${piece}`, false);
+        }
+    });
+
+    // Move player attribute
+    let player = selectedPiece.getAttribute("data-player");
+    targetCell.setAttribute("data-player", player);
+    selectedPiece.setAttribute("data-player", 0);
+
+    // Move piece classes
+    pieceTypes.forEach(piece => {
+        selectedPiece.classList.remove(`player${player}-${piece}`);
+        if (targetCell.getAttribute(`data-${piece}`) === "true") {
+            targetCell.classList.add(`player${player}-${piece}`);
+        }
+    });
+
+    // Remove highlight and reset selected piece
+    let unhigh = document.getElementsByClassName("square");
+    Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+    selectedPiece = null;
 }

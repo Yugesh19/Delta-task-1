@@ -7,6 +7,7 @@
   --hover:     lightgreen
 }
 .board {
+  align-items:center;
   width: var(--size);
   height: var(--size);
   border: 32px solid;
@@ -31,22 +32,37 @@
   cursor: pointer;
 }*/
 
-[data-tank="true"]{
+.player1-cannon{
+  background-image: url(cannon-down.jpeg); 
+  background-size: cover;
+}
+.player1-titan{
+  background: blue; 
+}
+.player1-rico{
+  background: blue; 
+}
+.player1-tank{
+  background: blue; 
+}
+.player1-srico{
   background: blue; 
 }
 
-[data-cannon="true"]{
-  background: brown;
-}
 
-[data-rico="true"]{
-  background: orange;
+.player2-cannon{
+  background-image: url(cannon-up.jpeg); 
+  background-size: cover;
 }
-
-[data-srico="true"]{
-  background: pink;
+.player2-titan{
+  background: red; 
 }
-
-[data-titan="true"]{
-  background: rgb(16, 2, 77);
+.player2-rico{
+  background: red; 
+}
+.player2-tank{
+  background: red; 
+}
+.player2-srico{
+  background: red; 
 }
