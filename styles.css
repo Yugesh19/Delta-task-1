@@ -22,12 +22,19 @@
 .black{
   background: var(--dark)
 }
+[data-highlight="true"]{
+  background: rgb(13, 95, 13);
+}
 
-td:hover {
+/*td:hover {
   background: var(--hover);
   cursor: pointer;
-}
+}*/
 
 [data-tank="true"]{
   background: blue; 
+}
+
+[data-cannon="true"]{
+  background: brown;
 }
