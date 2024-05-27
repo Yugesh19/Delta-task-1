@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="outline">
+        <div data-timer = "player1"></div>
+        <div id="board"></div>
+        <div data-timer="player2"></div>
+    </div>
+    <script>
+        const cols = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H"};
+const table = document.createElement("table");
+table.className = "board";
+let a = 1;
+let coords = [];
+let currentplayer = 1;
+let selectedPiece = null;
+
+boardCreator();
+
+function boardCreator(){
+    for (let i = 1; i < 9; i++) {
+        let tr = document.createElement('tr');
+        tr.dataset.line = i;
+        for (let j = 1; j < 9; j++) {
+            let td = document.createElement('td');
+            td.dataset.row = i;
+            td.dataset.col = j;
+            let c = [i, j];
+            coords.push(c);
+
+            td.dataset.player = 0;
+            td.dataset.tank = false;
+            td.dataset.rico = false;
+            td.dataset.srico = false;
+            td.dataset.titan = false;
+            td.dataset.cannon = false;
+            td.dataset.highlight = false;
+
+            td.addEventListener("click", function (e) {
+                handleClick(this);
+            });
+
+            td.className = (i % 2 === j % 2) ? "white square" : "black square";
+            td.classList.add("box" + String(a));
+            tr.appendChild(td);
+            a++;
+        }
+        table.appendChild(tr);
+    }
+}
+
+document.querySelector("div#board").appendChild(table);
+setInitialPieces();
+
+function setInitialPieces() {
+    setPiece(1, 4, 'cannon', 1);
+    setPiece(8, 5, 'cannon', 2);
+
+    let player1Pieces = ['tank', 'rico', 'srico', 'titan'];
+    player1Pieces.forEach(piece => placeRandomPiece(piece, 1));
+
+    let player2Pieces = ['tank', 'rico', 'srico', 'titan'];
+    player2Pieces.forEach(piece => placeRandomPiece(piece, 2));
+}
+
+function placeRandomPiece(piece, player) {
+    let row, col, cell;
+    do {
+        row = getRandomInt(player === 1 ? 2 : 5, player === 1 ? 4 : 7);
+        col = getRandomInt(1, 8);
+        cell = document.querySelector(`td[data-row='${row}'][data-col='${col}']`);
+    } while (cell.getAttribute("data-player") != 0);
+
+    setPiece(row, col, piece, player);
+}
+
+function setPiece(row, col, piece, player) {
+    let cell = document.querySelector(`td[data-row='${row}'][data-col='${col}']`);
+    cell.setAttribute(`data-${piece}`, true);
+    cell.setAttribute("data-player", player);
+    cell.classList.add(`player${player}-${piece}`);
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function handleClick(cell) {
+    if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
+        movePiece(cell);
+        currentplayer = 3 - currentplayer;
+    } else {
+        checkPiece(cell);
+    }
+}
+
+function checkPiece(cell) {
+    if (cell.getAttribute("data-player") != currentplayer) return;
+
+    let check = (cell.getAttribute("data-tank") === "true" || cell.getAttribute("data-titan") === "true" || cell.getAttribute("data-rico") === "true" || cell.getAttribute("data-srico") === "true" || cell.getAttribute("data-cannon") === "true");
+
+    if (check) {
+        let unhigh = document.getElementsByClassName("square");
+        Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+
+        selectedPiece = cell;
+
+        let row = Number(cell.getAttribute("data-row"));
+        let col = Number(cell.getAttribute("data-col"));
+        let neighbors;
+        if (cell.getAttribute("data-cannon") !== "true") {
+            neighbors = [
+                [row - 1, col - 1], [row - 1, col], [row - 1, col + 1],
+                [row, col + 1], [row + 1, col + 1], [row + 1, col],
+                [row + 1, col - 1], [row, col - 1]
+            ];
+        } else {
+            neighbors = [[row, col - 1], [row, col + 1]];
+        }
+        neighbors = neighbors.filter(([r, c]) => r >= 1 && r <= 8 && c >= 1 && c <= 8);
+
+        neighbors.forEach(([r, c]) => {
+            let neighborCell = document.querySelector(`td[data-row='${r}'][data-col='${c}']`);
+            if (neighborCell && neighborCell.getAttribute("data-player") == 0) {
+                neighborCell.setAttribute("data-highlight", true);
+            }
+        });
+    } else {
+        let unhigh = document.getElementsByClassName("square");
+        Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+        selectedPiece = null;
+    }
+}
+
+function movePiece(targetCell) {
+    if (!selectedPiece) return;
+
+    let pieceTypes = ['tank', 'rico', 'srico', 'titan', 'cannon'];
+    pieceTypes.forEach(piece => {
+        if (selectedPiece.getAttribute(`data-${piece}`) === "true") {
+            targetCell.setAttribute(`data-${piece}`, true);
+            selectedPiece.setAttribute(`data-${piece}`, false);
+        }
+    });
+
+    let player = selectedPiece.getAttribute("data-player");
+    targetCell.setAttribute("data-player", player);
+    selectedPiece.setAttribute("data-player", 0);
+
+    pieceTypes.forEach(piece => {
+        selectedPiece.classList.remove(`player${player}-${piece}`);
+        if (targetCell.getAttribute(`data-${piece}`) === "true") {
+            targetCell.classList.add(`player${player}-${piece}`);
+        }
+    });
+
+    let unhigh = document.getElementsByClassName("square");
+    Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+    selectedPiece = null;
+}
+
+    </script>
+    <style>
+        :root {
+  --size:      800px;
+  --backcolor: darkslategray;
+  --dark:      grey;
+  --light:     white;
+  --legend:    azure;
+  --hover:     lightgreen
+}
+.outline{
+  display: grid;
+  margin:auto;
+}
+.board {
+  align-items:center;
+  width: var(--size);
+  height: var(--size);
+  border: 32px solid;
+  border-color: var(--backcolor);
+  border-radius: 0.5rem;
+  margin:auto;
+}
+.square {
+  border: 1px black solid;
+}
+.white{
+  background: var(--light);
+}
+.black{
+  background: var(--dark)
+}
+[data-highlight="true"]{
+  background: rgb(13, 95, 13);
+}
+
+/*td:hover {
+  background: var(--hover);
+  cursor: pointer;
+}*/
+
+.player1-cannon{
+  background-image: url(cannon-down.jpeg); 
+  background-size: cover;
+}
+.player1-titan{
+  background: blue; 
+}
+.player1-rico{
+  background: blue; 
+}
+.player1-tank{
+  background-image: url(Shield\ blue.png); 
+  background-size: cover;
+}
+.player1-srico{
+  background: blue; 
+}
+
+
+.player2-cannon{
+  background-image: url(cannon-up.jpeg); 
+  background-size: cover;
+}
+.player2-titan{
+  background: red; 
+}
+.player2-rico{
+  background: red; 
+}
+.player2-tank{
+  background-image: url(Shield\ red.png) ; 
+  background-size: cover;
+}
+.player2-srico{
+  background: red; 
+}
+[data-timer="player1"]{
+  height:100px;
+  width:200px;
+  background:rgb(27, 5, 105);
+  margin:auto;
+}
+[data-timer="player2"]{
+  height:100px;
+  width:200px;
+  background:maroon;
+  margin:auto;
+}
+    </style>
+</body>

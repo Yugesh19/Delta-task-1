@@ -6,12 +6,11 @@
   --legend:    azure;
   --hover:     lightgreen
 }
+
 .outline{
-  display: flex;
+  display: grid;
   margin:auto;
-  justify-content: space-between;
-  align-items: center;
-  max-width: fit-conten
+  max-width: fit-content;
 }
 .board {
   align-items:center;
@@ -20,6 +19,8 @@
   border: 32px solid;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
+  margin:auto;
+  
 }
 .square {
   border: 1px black solid;
@@ -78,10 +79,12 @@
 [data-timer="player1"]{
   height:100px;
   width:200px;
-  background:orange;
+  background:rgb(27, 5, 105);
+  margin:auto;
 }
 [data-timer="player2"]{
   height:100px;
   width:200px;
   background:maroon;
+  margin:auto;
 }
