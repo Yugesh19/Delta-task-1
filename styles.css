@@ -6,6 +6,10 @@
   --legend:    azure;
   --hover:     lightgreen
 }
+.outline{
+  margin:auto;
+  max-width: fit-content;
+}
 .board {
   align-items:center;
   width: var(--size);
@@ -43,7 +47,8 @@
   background: blue; 
 }
 .player1-tank{
-  background: blue; 
+  background-image: url(Shield\ blue.png); 
+  background-size: cover;
 }
 .player1-srico{
   background: blue; 
@@ -61,7 +66,8 @@
   background: red; 
 }
 .player2-tank{
-  background: red; 
+  background-image: url(Shield\ red.png) ; 
+  background-size: cover;
 }
 .player2-srico{
   background: red; 

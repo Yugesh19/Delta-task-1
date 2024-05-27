@@ -4,9 +4,9 @@ table.className = "board";
 let a = 1;
 let coords = [];
 let currentplayer = 1;
-let selectedPiece = null;  // Variable to track the selected piece
+let selectedPiece = null;
 
-boardCreator()
+boardCreator();
 
 function boardCreator(){
     for (let i = 1; i < 9; i++) {
@@ -40,19 +40,16 @@ function boardCreator(){
     }
 }
 
-document.querySelector("div").appendChild(table);
+document.querySelector("div#board").appendChild(table);
 setInitialPieces();
 
 function setInitialPieces() {
-    // Cannons at fixed positions
-    setPiece(1, 4, 'cannon', 1);  // Player 1 cannon at bottom left
-    setPiece(8, 5, 'cannon', 2);  // Player 2 cannon at top right
+    setPiece(1, 4, 'cannon', 1);
+    setPiece(8, 5, 'cannon', 2);
 
-    // Randomly place other pieces for Player 1
     let player1Pieces = ['tank', 'rico', 'srico', 'titan'];
     player1Pieces.forEach(piece => placeRandomPiece(piece, 1));
 
-    // Randomly place other pieces for Player 2
     let player2Pieces = ['tank', 'rico', 'srico', 'titan'];
     player2Pieces.forEach(piece => placeRandomPiece(piece, 2));
 }
@@ -60,10 +57,10 @@ function setInitialPieces() {
 function placeRandomPiece(piece, player) {
     let row, col, cell;
     do {
-        row = getRandomInt(1, 8);
+        row = getRandomInt(player === 1 ? 2 : 5, player === 1 ? 4 : 7);
         col = getRandomInt(1, 8);
         cell = document.querySelector(`td[data-row='${row}'][data-col='${col}']`);
-    } while (cell.getAttribute("data-player") != 0 || (row === 1 && col === 1) || (row === 8 && col === 8));
+    } while (cell.getAttribute("data-player") != 0);
 
     setPiece(row, col, piece, player);
 }
@@ -84,19 +81,22 @@ function getRandomInt(min, max) {
 function handleClick(cell) {
     if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
         movePiece(cell);
+        currentplayer = 3 - currentplayer;
     } else {
         checkPiece(cell);
     }
 }
 
 function checkPiece(cell) {
+    if (cell.getAttribute("data-player") != currentplayer) return;
+
     let check = (cell.getAttribute("data-tank") === "true" || cell.getAttribute("data-titan") === "true" || cell.getAttribute("data-rico") === "true" || cell.getAttribute("data-srico") === "true" || cell.getAttribute("data-cannon") === "true");
 
     if (check) {
-        unhigh = document.getElementsByClassName("square");
+        let unhigh = document.getElementsByClassName("square");
         Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
-        
-        selectedPiece = cell;  // Store the selected piece
+
+        selectedPiece = cell;
 
         let row = Number(cell.getAttribute("data-row"));
         let col = Number(cell.getAttribute("data-col"));
@@ -114,21 +114,20 @@ function checkPiece(cell) {
 
         neighbors.forEach(([r, c]) => {
             let neighborCell = document.querySelector(`td[data-row='${r}'][data-col='${c}']`);
-            if (neighborCell && neighborCell.getAttribute("data-player") == 0) {  // Highlight only empty cells
+            if (neighborCell && neighborCell.getAttribute("data-player") == 0) {
                 neighborCell.setAttribute("data-highlight", true);
             }
         });
     } else {
         let unhigh = document.getElementsByClassName("square");
         Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
-        selectedPiece = null;  // Deselect the piece
+        selectedPiece = null;
     }
 }
 
 function movePiece(targetCell) {
     if (!selectedPiece) return;
 
-    // Move piece data attributes
     let pieceTypes = ['tank', 'rico', 'srico', 'titan', 'cannon'];
     pieceTypes.forEach(piece => {
         if (selectedPiece.getAttribute(`data-${piece}`) === "true") {
@@ -137,12 +136,10 @@ function movePiece(targetCell) {
         }
     });
 
-    // Move player attribute
     let player = selectedPiece.getAttribute("data-player");
     targetCell.setAttribute("data-player", player);
     selectedPiece.setAttribute("data-player", 0);
 
-    // Move piece classes
     pieceTypes.forEach(piece => {
         selectedPiece.classList.remove(`player${player}-${piece}`);
         if (targetCell.getAttribute(`data-${piece}`) === "true") {
@@ -150,7 +147,6 @@ function movePiece(targetCell) {
         }
     });
 
-    // Remove highlight and reset selected piece
     let unhigh = document.getElementsByClassName("square");
     Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
     selectedPiece = null;
