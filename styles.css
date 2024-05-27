@@ -7,8 +7,11 @@
   --hover:     lightgreen
 }
 .outline{
+  display: flex;
   margin:auto;
-  max-width: fit-content;
+  justify-content: space-between;
+  align-items: center;
+  max-width: fit-conten
 }
 .board {
   align-items:center;
@@ -71,4 +74,14 @@
 }
 .player2-srico{
   background: red; 
+}
+[data-timer="player1"]{
+  height:100px;
+  width:200px;
+  background:orange;
+}
+[data-timer="player2"]{
+  height:100px;
+  width:200px;
+  background:maroon;
 }
