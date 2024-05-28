@@ -1,99 +1,90 @@
 :root {
-  --size: 800px;
+  --size:      800px;
   --backcolor: darkslategray;
-  --dark: grey;
-  --light: white;
-  --legend: azure;
-  --hover: lightgreen;
+  --dark:      grey;
+  --light:     white;
+  --legend:    azure;
+  --hover:     lightgreen
 }
-.outline {
+
+.outline{
   display: grid;
-  margin: auto;
+  margin:auto;
+  max-width: fit-content;
 }
 .board {
-  align-items: center;
+  align-items:center;
   width: var(--size);
   height: var(--size);
   border: 32px solid;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
-  margin: auto;
+  margin:auto;
+  
 }
 .square {
   border: 1px black solid;
 }
-.white {
+.white{
   background: var(--light);
 }
-.black {
-  background: var(--dark);
+.black{
+  background: var(--dark)
 }
-[data-highlight="true"] {
+[data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
-.player1-cannon {
-  background-image: url(cannon-down.jpeg);
-  background-size: cover;
-}
-.player1-titan, .player1-rico, .player1-srico {
-  background: blue;
-}
-.player1-tank {
-  background-image: url(Shield\ blue.png);
-  background-size: cover;
-}
-.player2-cannon {
-  background-image: url(cannon-up.jpeg);
-  background-size: cover;
-}
-.player2-titan, .player2-rico, .player2-srico {
-  background: red;
-}
-.player2-tank {
-  background-image: url(Shield\ red.png);
-  background-size:contain;
-}
-[data-timer="player1"], [data-timer="player2"] {
-  height: 100px;
-  width: 200px;
-  background: maroon;
-  margin: auto;
-  text-align: center;
-  color: white;
-  font-size: 24px;
-  line-height: 100px;
-}
-[data-timer="player1"] {
-  background: rgb(27, 5, 105);
-}
-.control-buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-.control-buttons button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+
+/*td:hover {
+  background: var(--hover);
   cursor: pointer;
+}*/
+
+.player1-cannon{
+  background-image: url(cannon-down.jpeg); 
+  background-size: cover;
 }
-.current-player {
-  font-size: 24px;
-  text-align: center;
-  margin-top: 20px;
+.player1-titan{
+  background: blue; 
 }
-.popup {
-  display: none;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border: 2px solid black;
-  text-align: center;
-  z-index: 1000;
+.player1-rico{
+  background: blue; 
 }
-.popup.active {
-  display: block;
+.player1-tank{
+  background-image: url(Shield\ blue.png); 
+  background-size: cover;
+}
+.player1-srico{
+  background: blue; 
+}
+
+
+.player2-cannon{
+  background-image: url(cannon-up.jpeg); 
+  background-size: cover;
+}
+.player2-titan{
+  background: red; 
+}
+.player2-rico{
+  background: red; 
+}
+.player2-tank{
+  background-image: url(Shield\ red.png) ; 
+  background-size: cover;
+}
+.player2-srico{
+  background: red; 
+}
+[data-timer="player1"]{
+  height:100px;
+  width:200px;
+  background:rgb(27, 5, 105);
+  margin:auto;
+}
+[data-timer="player2"]{
+  height:100px;
+  width:200px;
+  background:maroon;
+  margin:auto;
 }
