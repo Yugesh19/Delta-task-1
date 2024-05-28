@@ -86,7 +86,7 @@ function handleClick(cell) {
     if (gamePaused) return;
     if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
         movePiece(cell);
-        shootProjectile(document.querySelector(`player${currentplayer}-cannon`).getAttribute("data-player"));
+        /*shootProjectile(document.querySelector(`player${currentplayer}-cannon`).getAttribute("data-player"));*/
         currentplayer = 3 - currentplayer;
         document.getElementById("current-player").textContent = `Current Player: ${currentplayer}`;
         startTimer();

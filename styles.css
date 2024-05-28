@@ -51,7 +51,7 @@
 }
 .player2-tank {
   background-image: url(Shield\ red.png);
-  background-size: cover;
+  background-size:contain;
 }
 [data-timer="player1"], [data-timer="player2"] {
   height: 100px;
