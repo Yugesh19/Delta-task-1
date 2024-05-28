@@ -61,7 +61,7 @@
 
 .player2-cannon{
   background-image: url(cannon-up.jpeg); 
-  background-size: cover;
+  background-size: 100%;
 }
 .player2-titan{
   background: red; 
@@ -71,7 +71,7 @@
 }
 .player2-tank{
   background-image: url(Shield\ red.png) ; 
-  background-size: cover;
+  background-size: 100%;
 }
 .player2-srico{
   background: red; 
