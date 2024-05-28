@@ -61,7 +61,8 @@
 
 .player2-cannon{
   background-image: url(cannon-up.jpeg); 
-  background-size: 100%;
+  background-size: cover;
+  
 }
 .player2-titan{
   background: red; 
@@ -71,20 +72,54 @@
 }
 .player2-tank{
   background-image: url(Shield\ red.png) ; 
-  background-size: 100%;
+  background-size: cover;
+  
 }
 .player2-srico{
   background: red; 
 }
-[data-timer="player1"]{
-  height:100px;
-  width:200px;
-  background:rgb(27, 5, 105);
-  margin:auto;
+
+[data-timer="player1"], [data-timer="player2"] {
+  height: 100px;
+  width: 200px;
+  background: maroon;
+  margin: auto;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  line-height: 100px;
 }
-[data-timer="player2"]{
-  height:100px;
-  width:200px;
-  background:maroon;
-  margin:auto;
+[data-timer="player1"] {
+  background: rgb(27, 5, 105);
+}
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.control-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.current-player {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 20px;
+}
+.popup {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 2px solid black;
+  text-align: center;
+  z-index: 1000;
+}
+.popup.active {
+  display: block;
 }

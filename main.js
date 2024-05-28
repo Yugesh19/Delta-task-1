@@ -5,10 +5,13 @@ let a = 1;
 let coords = [];
 let currentplayer = 1;
 let selectedPiece = null;
+let timers = {1: 300, 2: 300};
+let timerInterval = null;
+let gamePaused = false;
 
 boardCreator();
 
-function boardCreator(){
+function boardCreator() {
     for (let i = 1; i < 9; i++) {
         let tr = document.createElement('tr');
         tr.dataset.line = i;
@@ -42,6 +45,7 @@ function boardCreator(){
 
 document.querySelector("div#board").appendChild(table);
 setInitialPieces();
+startTimer();
 
 function setInitialPieces() {
     setPiece(1, 4, 'cannon', 1);
@@ -79,9 +83,12 @@ function getRandomInt(min, max) {
 }
 
 function handleClick(cell) {
+    if (gamePaused) return;
     if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
         movePiece(cell);
         currentplayer = 3 - currentplayer;
+        document.getElementById("current-player").textContent = `Current Player: ${currentplayer}`;
+        startTimer();
     } else {
         checkPiece(cell);
     }
@@ -150,4 +157,62 @@ function movePiece(targetCell) {
     let unhigh = document.getElementsByClassName("square");
     Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
     selectedPiece = null;
+}
+function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        if (timers[currentplayer] > 0) {
+            timers[currentplayer]--;
+            updateTimerDisplay();
+        } else {
+            clearInterval(timerInterval);
+            declareWinner(3 - currentplayer);
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    let minutes = Math.floor(timers[currentplayer] / 60);
+    let seconds = timers[currentplayer] % 60;
+    document.querySelector(`[data-timer="player${currentplayer}"]`).textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function pauseTimer() {
+    gamePaused = true;
+    clearInterval(timerInterval);
+}
+
+function resumeTimer() {
+    gamePaused = false;
+    startTimer();
+}
+
+function resetGame() {
+    clearInterval(timerInterval);
+    timers = {1: 300, 2: 300};
+    currentplayer = 1;
+    document.getElementById("current-player").textContent = `Current Player: 1`;
+    resetBoard();
+    setInitialPieces();
+    if(!gamePaused){startTimer();}
+    document.getElementById("winner-popup").classList.remove("active");
+}
+
+function resetBoard() {
+    let cells = document.querySelectorAll("td");
+    cells.forEach(cell => {
+        cell.setAttribute("data-player", 0);
+        cell.setAttribute("data-tank", false);
+        cell.setAttribute("data-rico", false);
+        cell.setAttribute("data-srico", false);
+        cell.setAttribute("data-titan", false);
+        cell.setAttribute("data-cannon", false);
+        cell.setAttribute("data-highlight", false);
+        cell.className = cell.className.replace(/player\d-\w+/g, '');
+    });
+}
+function declareWinner(player) {
+    clearInterval(timerInterval);
+    document.getElementById("winner-message").textContent = `Player ${player} wins!`;
+    document.getElementById("winner-popup").classList.add("active");
 }
