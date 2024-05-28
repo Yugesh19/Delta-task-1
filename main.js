@@ -1,14 +1,17 @@
-const cols = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H"};
+const cols = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H"};
 const table = document.createElement("table");
 table.className = "board";
 let a = 1;
 let coords = [];
 let currentplayer = 1;
 let selectedPiece = null;
+let timers = {1: 300, 2: 300};
+let timerInterval = null;
+let gamePaused = false;
 
 boardCreator();
 
-function boardCreator(){
+function boardCreator() {
     for (let i = 1; i < 9; i++) {
         let tr = document.createElement('tr');
         tr.dataset.line = i;
@@ -42,6 +45,7 @@ function boardCreator(){
 
 document.querySelector("div#board").appendChild(table);
 setInitialPieces();
+startTimer();
 
 function setInitialPieces() {
     setPiece(1, 4, 'cannon', 1);
@@ -79,9 +83,13 @@ function getRandomInt(min, max) {
 }
 
 function handleClick(cell) {
+    if (gamePaused) return;
     if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
         movePiece(cell);
+        shootProjectile(document.querySelector(`player${currentplayer}-cannon`).getAttribute("data-player"));
         currentplayer = 3 - currentplayer;
+        document.getElementById("current-player").textContent = `Current Player: ${currentplayer}`;
+        startTimer();
     } else {
         checkPiece(cell);
     }
@@ -150,4 +158,87 @@ function movePiece(targetCell) {
     let unhigh = document.getElementsByClassName("square");
     Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
     selectedPiece = null;
+}
+
+function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        if (timers[currentplayer] > 0) {
+            timers[currentplayer]--;
+            updateTimerDisplay();
+        } else {
+            clearInterval(timerInterval);
+            declareWinner(3 - currentplayer);
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    let minutes = Math.floor(timers[currentplayer] / 60);
+    let seconds = timers[currentplayer] % 60;
+    document.querySelector(`[data-timer="player${currentplayer}"]`).textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function pauseTimer() {
+    gamePaused = true;
+    clearInterval(timerInterval);
+}
+
+function resumeTimer() {
+    gamePaused = false;
+    startTimer();
+}
+
+function resetGame() {
+    clearInterval(timerInterval);
+    timers = {1: 300, 2: 300};
+    currentplayer = 1;
+    document.getElementById("current-player").textContent = `Current Player: 1`;
+    resetBoard();
+    setInitialPieces();
+    if(!gamePaused){startTimer();}
+    document.getElementById("winner-popup").classList.remove("active");
+}
+
+function resetBoard() {
+    let cells = document.querySelectorAll("td");
+    cells.forEach(cell => {
+        cell.setAttribute("data-player", 0);
+        cell.setAttribute("data-tank", false);
+        cell.setAttribute("data-rico", false);
+        cell.setAttribute("data-srico", false);
+        cell.setAttribute("data-titan", false);
+        cell.setAttribute("data-cannon", false);
+        cell.setAttribute("data-highlight", false);
+        cell.className = cell.className.replace(/player\d-\w+/g, '');
+    });
+}
+
+/*function shootProjectile(c) {
+    let cannon = document.querySelector(`player${c}-cannon`)
+    let row = Number(cannon.getAttribute("data-row"));
+    let col = Number(cannon.getAttribute("data-col"));
+    let direction = currentplayer === 1 ? 1 : -1;
+    let nextRow = row + direction;
+
+    while (nextRow >= 1 && nextRow <= 8) {
+        let targetCell = document.querySelector(`td[data-row='${nextRow}'][data-col='${col}']`);
+        if (targetCell.getAttribute("data-player") != 0) {
+            if (targetCell.getAttribute("data-titan") === "true") {
+                declareWinner(currentplayer);
+                return;
+            } else if (targetCell.getAttribute("data-tank") === "true") {
+                return; // Bullet blocked by tank
+            } else if (targetCell.getAttribute("data-srico") === "true" || targetCell.getAttribute("data-rico") === "true") {
+                direction = direction === 1 ? -1 : 1; // Bullet reflected
+            }
+        }
+        nextRow += direction;
+    }
+}*/
+
+function declareWinner(player) {
+    clearInterval(timerInterval);
+    document.getElementById("winner-message").textContent = `Player ${player} wins!`;
+    document.getElementById("winner-popup").classList.add("active");
 }
