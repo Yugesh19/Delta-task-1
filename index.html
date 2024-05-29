@@ -11,6 +11,10 @@
         <div id="board"></div>
         <div data-timer="player2">5:00</div>
     </div>
+    <div class="rotation-controls">
+        <button id="rotate-left" onclick = "rotateLeft()">Rotate Left</button>
+        <button id="rotate-right" onclick = "rotateRight()">Rotate Right</button>
+    </div>
     <div class="control-buttons">
         <button onclick="pauseTimer()">Pause</button>
         <button onclick="resumeTimer()">Resume</button>
@@ -21,6 +25,7 @@
         <p id="winner-message"></p>
         <button onclick="resetGame()">Play Again</button>
     </div>
+    
     <script src = "main.js"></script>
     <link href="styles.css" rel="stylesheet"></link>
 </body>

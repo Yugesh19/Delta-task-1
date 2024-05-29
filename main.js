@@ -72,6 +72,9 @@ function placeRandomPiece(piece, player) {
 function setPiece(row, col, piece, player) {
     let cell = document.querySelector(`td[data-row='${row}'][data-col='${col}']`);
     cell.setAttribute(`data-${piece}`, true);
+    if(piece==='rico'||piece==='srico'){
+        cell.dataset.rotation=getRandomInt(1,4);
+    }
     cell.setAttribute("data-player", player);
     cell.classList.add(`player${player}-${piece}`);
 }
@@ -86,6 +89,7 @@ function handleClick(cell) {
     if (gamePaused) return;
     if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
         movePiece(cell);
+        shootCannons(currentplayer); // Add this line to shoot the cannon after moving
         currentplayer = 3 - currentplayer;
         document.getElementById("current-player").textContent = `Current Player: ${currentplayer}`;
         startTimer();
@@ -100,6 +104,12 @@ function checkPiece(cell) {
     let check = (cell.getAttribute("data-tank") === "true" || cell.getAttribute("data-titan") === "true" || cell.getAttribute("data-rico") === "true" || cell.getAttribute("data-srico") === "true" || cell.getAttribute("data-cannon") === "true");
 
     if (check) {
+        if(cell.getAttribute("data-rico") === "true" || cell.getAttribute("data-srico") === "true"){
+            displayRotate();
+        }
+        else{
+            removeRotate()
+        }
         let unhigh = document.getElementsByClassName("square");
         Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
 
@@ -138,9 +148,15 @@ function movePiece(targetCell) {
     let pieceTypes = ['tank', 'rico', 'srico', 'titan', 'cannon'];
     pieceTypes.forEach(piece => {
         if (selectedPiece.getAttribute(`data-${piece}`) === "true") {
+            if(selectedPiece.getAttribute(`data-rico`) === "true"||selectedPiece.getAttribute(`data-srico`) === "true"){
+                let dtdir = selectedPiece.getAttribute("data-rotation")
+                targetCell.setAttribute(`data-rotation`, dtdir);
+                selectedPiece.removeAttribute("data-rotation");
+            }
             targetCell.setAttribute(`data-${piece}`, true);
             selectedPiece.setAttribute(`data-${piece}`, false);
         }
+    
     });
 
     let player = selectedPiece.getAttribute("data-player");
@@ -158,6 +174,7 @@ function movePiece(targetCell) {
     Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
     selectedPiece = null;
 }
+
 function startTimer() {
     if (timerInterval) clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -211,8 +228,85 @@ function resetBoard() {
         cell.className = cell.className.replace(/player\d-\w+/g, '');
     });
 }
+
 function declareWinner(player) {
     clearInterval(timerInterval);
     document.getElementById("winner-message").textContent = `Player ${player} wins!`;
     document.getElementById("winner-popup").classList.add("active");
+}
+
+function shootCannons(player) {
+    let cannons = document.querySelectorAll(`td[data-player='${player}'][data-cannon='true']`);
+    cannons.forEach(cannonCell => {
+        shootCannon(cannonCell);
+    });
+}
+
+function shootCannon(cell) {
+    let row = Number(cell.getAttribute("data-row"));
+    let col = Number(cell.getAttribute("data-col"));
+    let vertical = currentplayer === 1 ? 1 : -1; // Player 2 shoots up, Player 1 shoots down
+    let horizontal = 0;
+    let bulletInterval = setInterval(() => {
+        row += vertical;
+        col += horizontal;
+        if (row < 1 || row > 8) {
+            clearInterval(bulletInterval);
+            return;
+        }
+
+        let targetCell = document.querySelector(`td[data-row='${row}'][data-col='${col}']`);
+
+        if (!targetCell) {
+            clearInterval(bulletInterval);
+            return;
+        }
+
+        if (targetCell.getAttribute("data-tank") === "true") {
+            clearInterval(bulletInterval);
+            return;
+        }
+
+        if (targetCell.getAttribute("data-rico") === "true") {
+            horizontal = 0;
+            return;
+        }
+        
+        if(targetCell.getAttribute("data-srico") === "true"){
+            horizontal = 0;
+        }
+
+        if (targetCell.getAttribute("data-titan") === "true" && targetCell.getAttribute("data-player") !== currentplayer) {
+            clearInterval(bulletInterval);
+            declareWinner(3 - currentplayer);
+            return;
+        }
+
+        // Move bullet visual representation
+        let bulletColor = "brown"; // You can change this to any color
+        targetCell.style.backgroundColor = bulletColor;
+
+        setTimeout(() => {
+            targetCell.style.backgroundColor = ""; // Clear the bullet color
+        }, 200);
+    }, 200);
+}
+
+function displayRotate(){
+    document.querySelector(".rotation-controls").style.display = "flex";
+}
+function removeRotate(){
+    document.querySelector(".rotation-controls").style.display = "none";
+}
+function rotateRight(){
+    let direct = Number(selectedPiece.getAttribute("data-rotation"));
+    if(direct>=4){direct=1;}
+    else{direct++}
+    selectedPiece.setAttribute("data-rotation",direct)
+}
+function rotateLeft(){
+    let direct = selectedPiece.getAttribute("data-rotation");
+    if(direct<=1){direct=4;}
+    else{direct--}
+    selectedPiece.setAttribute("data-rotation",direct)
 }
