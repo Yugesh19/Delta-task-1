@@ -245,12 +245,23 @@ function shootCannons(player) {
 function shootCannon(cell) {
     let row = Number(cell.getAttribute("data-row"));
     let col = Number(cell.getAttribute("data-col"));
-    let vertical = currentplayer === 1 ? 1 : -1; // Player 2 shoots up, Player 1 shoots down
-    let horizontal = 0;
+    let bulletDirection = currentplayer === 1 ? "down":"up";
     let bulletInterval = setInterval(() => {
-        row += vertical;
-        col += horizontal;
-        if (row < 1 || row > 8) {
+        switch(bulletDirection){
+            case "up":
+                row-=1;
+                break;
+            case "down":
+                row+=1;
+                break;
+            case "left":
+                col-=1
+                break;
+            case "right":
+                col+=1;
+                break;
+        }
+        if (row < 1 || row > 8 || col < 1 || col > 8) {
             clearInterval(bulletInterval);
             return;
         }
@@ -268,26 +279,138 @@ function shootCannon(cell) {
         }
 
         if (targetCell.getAttribute("data-rico") === "true") {
-            horizontal = 0;
-            return;
-        }
-        
-        if(targetCell.getAttribute("data-srico") === "true"){
-            horizontal = 0;
+            let direction = Number(targetCell.getAttribute("data-rotation"));
+            if(direction===1||direction===3){
+                switch(bulletDirection){
+                    case "up":
+                        bulletDirection = "left";
+                        break;
+                    case "down":
+                        bulletDirection="right";
+                        break;
+                    case "right":
+                        bulletDirection="down";
+                        break;
+                    case "left":
+                        bulletDirection="up";
+                        break;
+                }
+            }
+            else if(direction===2||direction===4){
+                switch(bulletDirection){
+                    case "up":
+                        bulletDirection = "right";
+                        break;
+                    case "down":
+                        bulletDirection="left";
+                        break;
+                    case "right":
+                        bulletDirection="up";
+                        break;
+                    case "left":
+                        bulletDirection="down";
+                        break;
+                }
+                
+            }
+
+            
         }
 
-        if (targetCell.getAttribute("data-titan") === "true" && targetCell.getAttribute("data-player") !== currentplayer) {
-            clearInterval(bulletInterval);
-            declareWinner(3 - currentplayer);
-            return;
+        if (targetCell.getAttribute("data-srico") === "true") {
+            let direction = Number(targetCell.getAttribute("data-rotation"));
+            
+            switch (direction) {
+                case 1:
+                    switch(bulletDirection){
+                        case "down":
+                            bulletDirection = "right";
+                            console.log(bulletDirection);
+                            break;
+                        case "left":
+                            bulletDirection = "up";
+                            break;
+                        case "right":
+                            clearInterval(bulletInterval);
+                            break;
+                        case "up":
+                            clearInterval(bulletInterval);
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch(bulletDirection){
+                        case "up":
+                            bulletDirection = "right";
+                            console.log(bulletDirection);
+                            break;
+                        case "left":
+                            bulletDirection = "down";
+                            break;
+                        case "right":
+                            clearInterval(bulletInterval);
+                            break;
+                        case "down":
+                            clearInterval(bulletInterval);
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch(bulletDirection){
+                        case "up":
+                            bulletDirection = "left";
+                            console.log(bulletDirection);
+                            break;
+                        case "right":
+                            bulletDirection = "down";
+                            break;
+                        case "left":
+                            clearInterval(bulletInterval);
+                            break;
+                        case "down":
+                            clearInterval(bulletInterval);
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch(bulletDirection){
+                        case "down":
+                            bulletDirection = "left";
+                            console.log(bulletDirection);
+                            break;
+                        case "right":
+                            bulletDirection = "up";
+                            break;
+                        case "left":
+                            clearInterval(bulletInterval);
+                            break;
+                        case "up":
+                            clearInterval(bulletInterval);
+                            break;
+                    }
+                    break;
+
+            }
         }
+
+        if (targetCell.getAttribute("data-titan") === "true") {
+            if(Number(targetCell.getAttribute("data-player")) === currentplayer){
+                clearInterval(bulletInterval);
+                declareWinner(3 - currentplayer);
+                return;
+            }
+            else{
+                clearInterval(bulletInterval)
+            }
+        }
+        
 
         // Move bullet visual representation
         let bulletColor = "brown"; // You can change this to any color
-        targetCell.style.backgroundColor = bulletColor;
+        targetCell.classList.add("bullet");
 
         setTimeout(() => {
-            targetCell.style.backgroundColor = ""; // Clear the bullet color
+            targetCell.classList.remove("bullet"); // Clear the bullet color
         }, 200);
     }, 200);
 }

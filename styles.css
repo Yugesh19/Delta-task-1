@@ -45,7 +45,8 @@ td:hover {
   background-size: cover;
 }
 .player1-titan{
-  background: blue; 
+  background-image: url(blue\ crown.jpg); 
+  background-size: cover;
 }
 .player1-rico[data-rotation="1"]{
   background-image: url(blue\ rico.png);
@@ -70,6 +71,7 @@ td:hover {
 .player1-tank{
   background-image: url(Shield\ blue.png); 
   background-size: cover;
+  transform: rotate(180deg);
 }
 .player1-srico[data-rotation="1"]{
   background-image: url(blue\ srico.png);
@@ -98,7 +100,8 @@ td:hover {
   
 }
 .player2-titan{
-  background: red; 
+  background-image: url(red\ crown.jpg);
+  background-size:cover; 
 }
 .player2-rico{
   background: red; 
@@ -214,4 +217,8 @@ td:hover {
 .bullet {
     background-color: yellow;
     transition: background-color 0.1s ease;
+}
+.bullet{
+  background-image: url(bullet.png);
+  background-size: cover;
 }
