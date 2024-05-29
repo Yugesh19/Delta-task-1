@@ -24,7 +24,7 @@ Arjun, a tech enthusiast, was bored of playing chess. So he asked his nerd frien
 ### NormalMode
 
 - [x] Create an 8x8 grid for the game board. Make the base config as shown in the video: [Demo](https://www.youtube.com/watch?v=-gpd-5AY6T0)
-- [ ]  Make the cannon shoot a circular bullet. Implement movement logic and move validation for each piece: they can move to adjacent or diagonally adjacent cells or rotate.
+- [x]  Make the cannon shoot a circular bullet. Implement movement logic and move validation for each piece: they can move to adjacent or diagonally adjacent cells or rotate.
 - [x]  Add a time system: Each player gets specific amount of time. The timer must decrement during the respective player’s turn. If the timer balls down to 0, the other player wins.
 - [x]  Make the game mobile responsive.
 - [x]  Add pause, resume and reset feature.
