@@ -89,7 +89,7 @@ function handleClick(cell) {
     if (gamePaused) return;
     if (cell.getAttribute("data-highlight") === "true" && selectedPiece) {
         movePiece(cell);
-        shootCannons(currentplayer); // Add this line to shoot the cannon after moving
+        shootCannons(currentplayer);
         currentplayer = 3 - currentplayer;
         document.getElementById("current-player").textContent = `Current Player: ${currentplayer}`;
         startTimer();
@@ -404,13 +404,10 @@ function shootCannon(cell) {
             }
         }
         
-
-        // Move bullet visual representation
-        let bulletColor = "brown"; // You can change this to any color
         targetCell.classList.add("bullet");
 
         setTimeout(() => {
-            targetCell.classList.remove("bullet"); // Clear the bullet color
+            targetCell.classList.remove("bullet"); 
         }, 200);
     }, 200);
 }
@@ -426,10 +423,20 @@ function rotateRight(){
     if(direct>=4){direct=1;}
     else{direct++}
     selectedPiece.setAttribute("data-rotation",direct)
+    shootCannons(currentplayer);
+    currentplayer = 3 - currentplayer;
+    let unhigh = document.getElementsByClassName("square");
+    Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+    selectedPiece = null;
 }
 function rotateLeft(){
     let direct = selectedPiece.getAttribute("data-rotation");
     if(direct<=1){direct=4;}
     else{direct--}
     selectedPiece.setAttribute("data-rotation",direct)
+    shootCannons(currentplayer);
+    currentplayer = 3 - currentplayer;
+    let unhigh = document.getElementsByClassName("square");
+    Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
+    selectedPiece = null;
 }

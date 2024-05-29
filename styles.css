@@ -16,7 +16,7 @@
   align-items:center;
   width: var(--size);
   height: var(--size);
-  border: 5px solid;
+  border: 32px solid;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
   margin:auto;
@@ -41,111 +41,111 @@ td:hover {
 }
 
 .player1-cannon{
-  background-image: url(cannon-down.jpeg); 
+  background-image: url(./assets/cannon-down.jpeg); 
   background-size: cover;
 }
 .player1-titan{
-  background-image: url(blue\ crown.jpg); 
+  background-image: url(./assets/blue\ crown.jpg); 
   background-size: cover;
 }
 .player1-rico[data-rotation="1"]{
-  background-image: url(blue\ rico.png);
+  background-image: url(./assets/blue\ rico.png);
   background-size: cover;
 }
 .player1-rico[data-rotation="2"]{
-  background-image: url(blue\ rico.png);
+  background-image: url(./assets/blue\ rico.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player1-rico[data-rotation="3"]{
-  background-image: url(blue\ rico.png);
+  background-image: url(./assets/blue\ rico.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player1-rico[data-rotation="4"]{
-  background-image: url(blue\ rico.png);
+  background-image: url(./assets/blue\ rico.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 
 .player1-tank{
-  background-image: url(Shield\ blue.png); 
+  background-image: url(./assets/Shield\ blue.png); 
   background-size: cover;
   transform: rotate(180deg);
 }
 .player1-srico[data-rotation="1"]{
-  background-image: url(blue\ srico.png);
+  background-image: url(./assets/blue\ srico.png);
   background-size: cover;
 }
 .player1-srico[data-rotation="2"]{
-  background-image: url(blue\ srico.png);
+  background-image: url(./assets/blue\ srico.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player1-srico[data-rotation="3"]{
-  background-image: url(blue\ srico.png);
+  background-image: url(./assets/blue\ srico.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player1-srico[data-rotation="4"]{
-  background-image: url(blue\ srico.png);
+  background-image: url(./assets/blue\ srico.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 
 
 .player2-cannon{
-  background-image: url(cannon-up.jpeg); 
+  background-image: url(./assets/cannon-up.jpeg); 
   background-size: cover;
   
 }
 .player2-titan{
-  background-image: url(red\ crown.jpg);
+  background-image: url(./assets/red\ crown.jpg);
   background-size:cover; 
 }
 .player2-rico{
   background: red; 
 }
 .player2-tank{
-  background-image: url(Shield\ red.png) ; 
+  background-image: url(./assets/Shield\ red.png) ; 
   background-size: cover;
   
 }
 .player2-srico[data-rotation="1"]{
-  background-image: url(red\ srico.png);
+  background-image: url(./assets/red\ srico.png);
   background-size: cover;
 }
 .player2-srico[data-rotation="2"]{
-  background-image: url(red\ srico.png);
+  background-image: url(./assets/red\ srico.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player2-srico[data-rotation="3"]{
-  background-image: url(red\ srico.png);
+  background-image: url(./assets/red\ srico.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player2-srico[data-rotation="4"]{
-  background-image: url(red\ srico.png);
+  background-image: url(./assets/red\ srico.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 .player2-rico[data-rotation="1"]{
-  background-image: url(red\ rico.png);
+  background-image: url(./assets/red\ rico.png);
   background-size: cover;
 }
 .player2-rico[data-rotation="2"]{
-  background-image: url(red\ rico.png);
+  background-image: url(./assets/red\ rico.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player2-rico[data-rotation="3"]{
-  background-image: url(red\ rico.png);
+  background-image: url(./assets/red\ rico.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player2-rico[data-rotation="4"]{
-  background-image: url(red\ rico.png);
+  background-image: url(./assets/red\ rico.png);
   background-size: cover;
   transform: rotate(270deg);
 }
@@ -214,11 +214,7 @@ td:hover {
 .popup.active {
   display: block;
 }
-.bullet {
-    background-color: yellow;
-    transition: background-color 0.1s ease;
-}
 .bullet{
-  background-image: url(bullet.png);
+  background-image: url(./assets/bullet.png);
   background-size: cover;
 }
