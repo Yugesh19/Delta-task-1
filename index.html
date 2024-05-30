@@ -3,29 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ricochet Rumble</title>
 </head>
 <body>
-    <div class="outline">
-        <div data-timer="player1">5:00</div>
-        <div id="board"></div>
-        <div data-timer="player2">5:00</div>
+    <div class="container">
+        <button class="game-button startgame" onclick="startGame()"></button>
+        <button class="game-button loadgame" onclick="loadGame()"></button>
+        <button class="game-button options" onclick="openOptions()"></button>
     </div>
-    <div class="rotation-controls">
-        <button id="rotate-left" onclick = "rotateLeft()">Rotate Left</button>
-        <button id="rotate-right" onclick = "rotateRight()">Rotate Right</button>
+
+    <!--------------------options box-------------------->
+
+    <div id="options-box" class="options-box">
+        
+        <div class="option">
+            <span>Option 1</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="option">
+            <span>Option 2</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="option">
+            <span>Option 3</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="option">
+            <span>Option 4</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="option">
+            <span>Option 5</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <button class="close-button" onclick="closeOptions()">Close</button>
     </div>
-    <div class="control-buttons">
-        <button onclick="pauseTimer()">Pause</button>
-        <button onclick="resumeTimer()">Resume</button>
-        <button onclick="resetGame()">Reset</button>
-    </div>
-    <div class="current-player" id="current-player">Current Player: 1</div>
-    <div class="popup" id="winner-popup">
-        <p id="winner-message"></p>
-        <button onclick="resetGame()">Play Again</button>
-    </div>
-    
-    <script src = "main.js"></script>
-    <link href="styles.css" rel="stylesheet"></link>
+
+    <link href="homepagestyles.css" rel="stylesheet">
+    <script>
+        function startGame() {
+            setTimeout(()=>window.location.href="normalmode.html",500);
+        }
+
+        function loadGame() {
+            setTimeout(()=>window.location.href="",500);
+        }
+
+        function openOptions() {
+            document.getElementById("options-box").style.display = "block";
+        }
+
+        function closeOptions() {
+            document.getElementById("options-box").style.display = "none";
+        }
+    </script>
 </body>
+</html>
