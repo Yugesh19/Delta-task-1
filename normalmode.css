@@ -1,5 +1,5 @@
 :root {
-  --size:      800px;
+  --size:      400px;
   --backcolor: darkslategray;
   --dark:      grey;
   --light:     white;
@@ -7,15 +7,29 @@
   --hover:     lightgreen
 }
 
+html, body {
+  width: 100vw; 
+  height: 100vh;
+}
+
 .outline{
-  display: grid;
+  display: flex;
+  flex-direction: column;
   margin:auto;
-  max-width: fit-content;
+  align-items: center;
+  justify-content: center;
+}
+.displayHistory{
+  width:300px;
+  height:100px;
+  background: rgb(255, 255, 255);
+  margin:auto;
+  border:3px black double;
 }
 .board {
   align-items:center;
-  width: var(--size);
-  height: var(--size);
+  width: 520px;
+  height: 520px;
   border:5px dimgray double;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
@@ -35,7 +49,10 @@
 [data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
-
+.bullet{
+  background-image: url(./assets/bullet.png);
+  background-size: cover;
+}
 /*--------------------------------------pieces--------------------------------------------*/
 .player1-cannon{
   background-image: url(./assets/cannon-down.jpeg); 
@@ -146,8 +163,8 @@
 }
 /*----------------------------------------------------------pieces-----------------------------------------------------------*/
 [data-timer="player1"], [data-timer="player2"] {
-  height: 100px;
-  width: 200px;
+  height: 50px;
+  width: 100px;
   
   margin: 10px auto;
   text-align: center;
@@ -155,21 +172,40 @@
   font-size: 24px;
   color:black;
   font-weight:bold;
-  line-height: 100px;
+  line-height: 50px;
   border:3px black solid;
   border-radius:5px;
 }
 .control-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
+  
 }
 .control-buttons button {
   margin: 0 10px;
   padding: 10px 20px;
+  font-family: sans-serif,Baskerville Old Face,Hoefler Text,Times New Roman,serif; 
+<<<<<<< HEAD
+  font-weight:bold;
+=======
+>>>>>>> a2744a3d7b430d0553c21c273e700cf18b8e1eda
   font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
 }
+
+/*
+.pause{
+  background-image: url(./assets/pause.jpg);
+  background-size:cover;
+}
+.resume{
+  background-image: url(./assets/play.jpg);
+  background-size:cover;
+}
+*/
+
 .rotation-controls {
   display: none;
   justify-content: center;
@@ -209,8 +245,4 @@
 }
 .popup.active {
   display: block;
-}
-.bullet{
-  background-image: url(./assets/bullet.png);
-  background-size: cover;
 }
