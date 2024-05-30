@@ -16,7 +16,7 @@
   align-items:center;
   width: var(--size);
   height: var(--size);
-  border: 32px solid;
+  border:5px dimgray double;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
   margin:auto;
@@ -24,22 +24,19 @@
 }
 .square {
   border: 1px black solid;
+  border-radius: 0.5rem;
 }
 .white{
   background: var(--light);
 }
 .black{
-  background: var(--dark)
+  background: var(--light)
 }
 [data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
 
-td:hover {
-  border: 5px black;
-  cursor: pointer;
-}
-
+/*--------------------------------------pieces--------------------------------------------*/
 .player1-cannon{
   background-image: url(./assets/cannon-down.jpeg); 
   background-size: cover;
@@ -67,7 +64,6 @@ td:hover {
   background-size: cover;
   transform: rotate(270deg);
 }
-
 .player1-tank{
   background-image: url(./assets/Shield\ blue.png); 
   background-size: cover;
@@ -92,7 +88,6 @@ td:hover {
   background-size: cover;
   transform: rotate(270deg);
 }
-
 
 .player2-cannon{
   background-image: url(./assets/cannon-up.jpeg); 
@@ -149,19 +144,20 @@ td:hover {
   background-size: cover;
   transform: rotate(270deg);
 }
-
+/*----------------------------------------------------------pieces-----------------------------------------------------------*/
 [data-timer="player1"], [data-timer="player2"] {
   height: 100px;
   width: 200px;
-  background: maroon;
-  margin: auto;
+  
+  margin: 10px auto;
   text-align: center;
   color: white;
   font-size: 24px;
+  color:black;
+  font-weight:bold;
   line-height: 100px;
-}
-[data-timer="player1"] {
-  background: rgb(27, 5, 105);
+  border:3px black solid;
+  border-radius:5px;
 }
 .control-buttons {
   display: flex;
