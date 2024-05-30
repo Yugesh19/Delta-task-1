@@ -13,14 +13,22 @@ html, body {
 }
 
 .outline{
-  display: grid;
+  display: flex;
+  flex-direction: column;
   margin:auto;
   max-width: fit-content;
 }
+.displayHistory{
+  width:300px;
+  height:100px;
+  background: rgb(255, 255, 255);
+  margin:auto;
+  border:3px black double;
+}
 .board {
   align-items:center;
-  width: 400px;
-  height: 400px;
+  width: 520px;
+  height: 520px;
   border:5px dimgray double;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
@@ -40,7 +48,10 @@ html, body {
 [data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
-
+.bullet{
+  background-image: url(./assets/bullet.png);
+  background-size: cover;
+}
 /*--------------------------------------pieces--------------------------------------------*/
 .player1-cannon{
   background-image: url(./assets/cannon-down.jpeg); 
@@ -151,8 +162,8 @@ html, body {
 }
 /*----------------------------------------------------------pieces-----------------------------------------------------------*/
 [data-timer="player1"], [data-timer="player2"] {
-  height: 100px;
-  width: 200px;
+  height: 50px;
+  width: 100px;
   
   margin: 10px auto;
   text-align: center;
@@ -160,14 +171,14 @@ html, body {
   font-size: 24px;
   color:black;
   font-weight:bold;
-  line-height: 100px;
+  line-height: 50px;
   border:3px black solid;
   border-radius:5px;
 }
 .control-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
   
 }
 .control-buttons button {
@@ -229,8 +240,4 @@ html, body {
 }
 .popup.active {
   display: block;
-}
-.bullet{
-  background-image: url(./assets/bullet.png);
-  background-size: cover;
 }
