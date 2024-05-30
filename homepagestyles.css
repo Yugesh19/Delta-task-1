@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 body {
     margin: 0;
     padding: 0;
@@ -6,7 +7,7 @@ body {
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
-    background-image: url(./assets/Homepage.svg);
+    background-image: url(./assets/yugesh_assests/home-background.png);
     background-size: cover;
     background-position: center;
 }
@@ -22,7 +23,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    width: 150px;
+    width: 175px;
     height: 50px;
     margin: 10px;
     font-size: 18px;
@@ -34,11 +35,15 @@ body {
 }
 
 .startgame {
-    background-image: url(./assets/STARTGAME.png);
+    font-family: "Pixelify Sans", sans-serif;
+    font-size:24px;
+    font-weight:bold;
 }
 
 .loadgame {
-    background-image: url(./assets/loadgame.png);
+    font-family: "Pixelify Sans", sans-serif;
+    font-size:24px;
+    font-weight:bold;
 }
 
 .game-button:hover {
@@ -47,7 +52,9 @@ body {
 }
 
 .options {
-    background-image: url(./assets/options.png);
+    font-family: "Pixelify Sans", sans-serif;
+    font-size:24px;
+    font-weight:bold;
 }
 
 

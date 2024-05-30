@@ -165,7 +165,7 @@ function movePiece(targetCell) {
     let player = selectedPiece.getAttribute("data-player");
     targetCell.setAttribute("data-player", player);
     selectedPiece.setAttribute("data-player", 0);
-
+    /*logmove(selectedPiece,targetCell)*/
     pieceTypes.forEach(piece => {
         selectedPiece.classList.remove(`player${player}-${piece}`);
         if (targetCell.getAttribute(`data-${piece}`) === "true") {
@@ -334,7 +334,7 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "down":
                             bulletDirection = "right";
-                            console.log(bulletDirection);
+                            
                             break;
                         case "left":
                             bulletDirection = "up";
@@ -343,15 +343,19 @@ function shootCannon(cell) {
                             clearInterval(bulletInterval);
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
-                           targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                         case "up":
                             clearInterval(bulletInterval);
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                     }
                     break;
@@ -369,14 +373,18 @@ function shootCannon(cell) {
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                         case "down":
                             clearInterval(bulletInterval);
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                     }
                     break;
@@ -394,14 +402,18 @@ function shootCannon(cell) {
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                         case "down":
                             clearInterval(bulletInterval);
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                     }
                     break;
@@ -419,14 +431,18 @@ function shootCannon(cell) {
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                         case "up":
                             clearInterval(bulletInterval);
                             gamePaused=false;
                             targetCell.setAttribute("data-srico",false);
                             targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.classList.remove(`player${currentplayer}-srico`)
                             targetCell.removeAttribute("data-rotation");
+                            targetCell.setAttribute("data-player",0);
                             break;
                     }
                     break;
@@ -483,3 +499,14 @@ function rotateLeft(){
     Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
     selectedPiece = null;
 }
+let history=[];
+let lastmove=[];
+/*function logmove(initial,final){
+    if(cell.getAttribute("data-tank") === "true"){
+        history.push()
+    }
+    else if(cell.getAttribute("data-titan") === "true"){}
+    else if(cell.getAttribute("data-rico") === "true"){}
+    else if(cell.getAttribute("data-srico") === "true"){}
+    else if(cell.getAttribute("data-cannon") === "true"){}
+}*/

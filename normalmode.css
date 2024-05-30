@@ -6,7 +6,10 @@
   --legend:    azure;
   --hover:     lightgreen
 }
-
+body{
+  background-image:url(./assets/yugesh_assests/background-main.png);
+  background-size:cover;
+}
 .outline{
   display: grid;
   margin:auto;
@@ -26,124 +29,128 @@
   border: 1px black solid;
   border-radius: 0.5rem;
 }
-.white{
-  background: var(--light);
+.white, .black{
+  background: rgb(255,255,255,0.5);
 }
-.black{
-  background: var(--light)
-}
+
 [data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
 .bullet{
-  background-image: url(./assets/bullet.png);
-  background-size: cover;
+  animation-name: bull;
+  animation-duration:0.2s;
+}
+@keyframes bull{
+  0%{background-image: url(./assets/bullet.png);background-size:cover;}
+  50%{background-image: url(./assets/bullet.png);background-size:cover;}
+  100%{background-image: url(./assets/bullet.png);background-size:cover;}
 }
 /*--------------------------------------pieces--------------------------------------------*/
 .player1-cannon{
-  background-image: url(./assets/cannon-down.jpeg); 
+  background-image: url(./assets/yugesh_assests/cannon-blue.png); 
+  transform: rotate(180deg);
   background-size: cover;
 }
 .player1-titan{
-  background-image: url(./assets/blue\ crown.jpg); 
+  background-image: url(./assets/yugesh_assests/titan-blue.png); 
   background-size: cover;
 }
 .player1-rico[data-rotation="1"]{
-  background-image: url(./assets/blue\ rico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-blue.png);
   background-size: cover;
 }
 .player1-rico[data-rotation="2"]{
-  background-image: url(./assets/blue\ rico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-blue.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player1-rico[data-rotation="3"]{
-  background-image: url(./assets/blue\ rico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-blue.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player1-rico[data-rotation="4"]{
-  background-image: url(./assets/blue\ rico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-blue.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 .player1-tank{
-  background-image: url(./assets/Shield\ blue.png); 
+  background-image: url(./assets/yugesh_assests/shield-blue.png); 
   background-size: cover;
   transform: rotate(180deg);
 }
 .player1-srico[data-rotation="1"]{
-  background-image: url(./assets/blue\ srico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-blue.png);
   background-size: cover;
 }
 .player1-srico[data-rotation="2"]{
-  background-image: url(./assets/blue\ srico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-blue.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player1-srico[data-rotation="3"]{
-  background-image: url(./assets/blue\ srico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-blue.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player1-srico[data-rotation="4"]{
-  background-image: url(./assets/blue\ srico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-blue.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 
 .player2-cannon{
-  background-image: url(./assets/cannon-up.jpeg); 
+  background-image: url(./assets/yugesh_assests/cannon-red.png); 
   background-size: cover;
   
 }
 .player2-titan{
-  background-image: url(./assets/red\ crown.jpg);
+  background-image: url(./assets/yugesh_assests/titan-red.png);
   background-size:cover; 
 }
 .player2-rico{
   background: red; 
 }
 .player2-tank{
-  background-image: url(./assets/Shield\ red.png) ; 
+  background-image: url(./assets/yugesh_assests/shield-red.png) ; 
   background-size: cover;
   
 }
 .player2-srico[data-rotation="1"]{
-  background-image: url(./assets/red\ srico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
 }
 .player2-srico[data-rotation="2"]{
-  background-image: url(./assets/red\ srico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player2-srico[data-rotation="3"]{
-  background-image: url(./assets/red\ srico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player2-srico[data-rotation="4"]{
-  background-image: url(./assets/red\ srico.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 .player2-rico[data-rotation="1"]{
-  background-image: url(./assets/red\ rico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
 }
 .player2-rico[data-rotation="2"]{
-  background-image: url(./assets/red\ rico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player2-rico[data-rotation="3"]{
-  background-image: url(./assets/red\ rico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player2-rico[data-rotation="4"]{
-  background-image: url(./assets/red\ rico.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
   transform: rotate(270deg);
 }
