@@ -7,6 +7,11 @@
   --hover:     lightgreen
 }
 
+html, body {
+  width: 100vw; 
+  height: 100vh;
+}
+
 .outline{
   display: grid;
   margin:auto;
@@ -14,8 +19,8 @@
 }
 .board {
   align-items:center;
-  width: var(--size);
-  height: var(--size);
+  width: 400px;
+  height: 400px;
   border:5px dimgray double;
   border-color: var(--backcolor);
   border-radius: 0.5rem;
@@ -163,13 +168,28 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  
 }
 .control-buttons button {
   margin: 0 10px;
   padding: 10px 20px;
+  font-family: sans-serif,Baskerville Old Face,Hoefler Text,Times New Roman,serif; 
   font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
 }
+
+/*
+.pause{
+  background-image: url(./assets/pause.jpg);
+  background-size:cover;
+}
+.resume{
+  background-image: url(./assets/play.jpg);
+  background-size:cover;
+}
+*/
+
 .rotation-controls {
   display: none;
   justify-content: center;
