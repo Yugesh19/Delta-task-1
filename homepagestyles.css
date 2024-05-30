@@ -2,20 +2,31 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content:flex-start;
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
     background-image: url(./assets/Homepage.svg);
     background-size: cover;
     background-position: center;
+    flex-direction: column;
+    
 }
-
+.Title{
+    margin-top:auto;
+    margin-bottom:30px;
+    width:500px;
+    height:100px;
+    background-image: url(./assets/Title.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+}
 .container {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom:auto;
 }
 
 .game-button {
