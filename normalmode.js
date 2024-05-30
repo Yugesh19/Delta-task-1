@@ -48,6 +48,9 @@ setInitialPieces();
 startTimer();
 
 function setInitialPieces() {
+    gamePaused=false;
+    document.querySelector(`[data-timer="player1"]`).textContent = `5:00`;
+    document.querySelector(`[data-timer="player2"]`).textContent = `5:00`;
     setPiece(1, 4, 'cannon', 1);
     setPiece(8, 5, 'cannon', 2);
 
@@ -207,6 +210,7 @@ function resumeTimer() {
 function resetGame() {
     clearInterval(timerInterval);
     timers = {1: 300, 2: 300};
+    
     currentplayer = 1;
     document.getElementById("current-player").textContent = `Current Player: 1`;
     resetBoard();
@@ -233,6 +237,7 @@ function declareWinner(player) {
     clearInterval(timerInterval);
     document.getElementById("winner-message").textContent = `Player ${player} wins!`;
     document.getElementById("winner-popup").classList.add("active");
+    gamePaused=true;
 }
 
 function shootCannons(player) {
@@ -243,6 +248,7 @@ function shootCannons(player) {
 }
 
 function shootCannon(cell) {
+    gamePaused=true;
     let row = Number(cell.getAttribute("data-row"));
     let col = Number(cell.getAttribute("data-col"));
     let bulletDirection = currentplayer === 1 ? "down":"up";
@@ -263,6 +269,7 @@ function shootCannon(cell) {
         }
         if (row < 1 || row > 8 || col < 1 || col > 8) {
             clearInterval(bulletInterval);
+            gamePaused=false;
             return;
         }
 
@@ -270,11 +277,13 @@ function shootCannon(cell) {
 
         if (!targetCell) {
             clearInterval(bulletInterval);
+            gamePaused=false;
             return;
         }
 
         if (targetCell.getAttribute("data-tank") === "true") {
             clearInterval(bulletInterval);
+            gamePaused=false;
             return;
         }
 
@@ -332,9 +341,17 @@ function shootCannon(cell) {
                             break;
                         case "right":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                           targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                         case "up":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                     }
                     break;
@@ -349,9 +366,17 @@ function shootCannon(cell) {
                             break;
                         case "right":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                         case "down":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                     }
                     break;
@@ -366,9 +391,17 @@ function shootCannon(cell) {
                             break;
                         case "left":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                         case "down":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                     }
                     break;
@@ -383,9 +416,17 @@ function shootCannon(cell) {
                             break;
                         case "left":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                         case "up":
                             clearInterval(bulletInterval);
+                            gamePaused=false;
+                            targetCell.setAttribute("data-srico",false);
+                            targetCell.classList.remove(`player${3-currentplayer}-srico`)
+                            targetCell.removeAttribute("data-rotation");
                             break;
                     }
                     break;
@@ -395,12 +436,14 @@ function shootCannon(cell) {
 
         if (targetCell.getAttribute("data-titan") === "true") {
             if(Number(targetCell.getAttribute("data-player")) === currentplayer){
+                gamePaused=false;
                 clearInterval(bulletInterval);
                 declareWinner(3 - currentplayer);
                 return;
             }
             else{
-                clearInterval(bulletInterval)
+                clearInterval(bulletInterval);
+                gamePaused=false;
             }
         }
         
@@ -408,8 +451,8 @@ function shootCannon(cell) {
 
         setTimeout(() => {
             targetCell.classList.remove("bullet"); 
-        }, 200);
-    }, 200);
+        }, 100);
+    }, 100);
 }
 
 function displayRotate(){

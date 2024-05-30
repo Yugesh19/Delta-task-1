@@ -35,7 +35,10 @@
 [data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
-
+.bullet{
+  background-image: url(./assets/bullet.png);
+  background-size: cover;
+}
 /*--------------------------------------pieces--------------------------------------------*/
 .player1-cannon{
   background-image: url(./assets/cannon-down.jpeg); 
@@ -211,8 +214,4 @@
 }
 .popup.active {
   display: block;
-}
-.bullet{
-  background-image: url(./assets/bullet.png);
-  background-size: cover;
 }
