@@ -1,5 +1,5 @@
 :root {
-  --size:      800px;
+  --size:      400px;
   --backcolor: darkslategray;
   --dark:      grey;
   --light:     white;
@@ -167,6 +167,8 @@
 .control-buttons button {
   margin: 0 10px;
   padding: 10px 20px;
+  font-family: sans-serif,Baskerville Old Face,Hoefler Text,Times New Roman,serif; 
+  font-weight:bold;
   font-size: 16px;
   cursor: pointer;
 }
