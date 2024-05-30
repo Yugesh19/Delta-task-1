@@ -167,6 +167,8 @@
 .control-buttons button {
   margin: 0 10px;
   padding: 10px 20px;
+  font-family:sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
+  font-weight:bold;
   font-size: 16px;
   cursor: pointer;
 }
