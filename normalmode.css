@@ -16,7 +16,6 @@ html, body {
   display: flex;
   flex-direction: column;
   margin:auto;
-  max-width: fit-content;
   align-items: center;
   justify-content: center;
 }
