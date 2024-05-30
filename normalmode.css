@@ -17,6 +17,8 @@ html, body {
   flex-direction: column;
   margin:auto;
   max-width: fit-content;
+  align-items: center;
+  justify-content: center;
 }
 .displayHistory{
   width:300px;
