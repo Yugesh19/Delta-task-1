@@ -8,7 +8,13 @@
 }
 body{
   background-image:url(./assets/yugesh_assests/background-main.png);
-  background-size:cover;
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-color: black;
+}
+body {
+  height: 100%;
+  overflow-y: hidden;
 }
 .outline{
   display: grid;
@@ -117,40 +123,40 @@ body{
   
 }
 .player2-srico[data-rotation="1"]{
-  background-image: url(./assets/yugesh_assests/ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
 }
 .player2-srico[data-rotation="2"]{
-  background-image: url(./assets/yugesh_assests/ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player2-srico[data-rotation="3"]{
-  background-image: url(./assets/yugesh_assests/ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player2-srico[data-rotation="4"]{
-  background-image: url(./assets/yugesh_assests/ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
   background-size: cover;
   transform: rotate(270deg);
 }
 .player2-rico[data-rotation="1"]{
-  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
 }
 .player2-rico[data-rotation="2"]{
-  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
   transform: rotate(90deg);
 }
 .player2-rico[data-rotation="3"]{
-  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
   transform: rotate(180deg);
 }
 .player2-rico[data-rotation="4"]{
-  background-image: url(./assets/yugesh_assests/semi-ricochet-red.png);
+  background-image: url(./assets/yugesh_assests/ricochet-red.png);
   background-size: cover;
   transform: rotate(270deg);
 }
@@ -161,12 +167,12 @@ body{
   
   margin: 10px auto;
   text-align: center;
-  color: white;
   font-size: 24px;
-  color:black;
+  color:white;
   font-weight:bold;
   line-height: 50px;
-  border:3px black solid;
+  border:3px white solid;
+  background:rgb(13, 95, 13,.4);
   border-radius:5px;
 }
 .control-buttons {
