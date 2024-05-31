@@ -8,7 +8,7 @@
 }
 body{
   background-image:url(./assets/yugesh_assests/background-main.png);
-  background-size:contain;
+  background-size:cover;
   background-repeat: no-repeat;
   background-color: black;
 }
