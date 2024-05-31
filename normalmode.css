@@ -6,15 +6,18 @@
   --legend:    azure;
   --hover:     lightgreen
 }
-body{
-  background-image:url(./assets/yugesh_assests/background-main.png);
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-color: black;
-}
 body {
-  height: 100%;
-  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-image: url(./assets/yugesh_assests/background-main.png);
+  background-size: cover;
+  background-position: center;
 }
 .outline{
   display: grid;
