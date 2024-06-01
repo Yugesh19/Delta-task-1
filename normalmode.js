@@ -165,7 +165,10 @@ function movePiece(targetCell) {
     let player = selectedPiece.getAttribute("data-player");
     targetCell.setAttribute("data-player", player);
     selectedPiece.setAttribute("data-player", 0);
-    /*logmove(selectedPiece,targetCell)*/
+    logmove(selectedPiece,targetCell,Number(player));
+
+    
+
     pieceTypes.forEach(piece => {
         selectedPiece.classList.remove(`player${player}-${piece}`);
         if (targetCell.getAttribute(`data-${piece}`) === "true") {
@@ -173,9 +176,7 @@ function movePiece(targetCell) {
         }
     });
 
-    let unhigh = document.getElementsByClassName("square");
-    Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
-    selectedPiece = null;
+    unhighlight();
 }
 
 function startTimer() {
@@ -363,7 +364,7 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "up":
                             bulletDirection = "right";
-                            console.log(bulletDirection);
+                            
                             break;
                         case "left":
                             bulletDirection = "down";
@@ -392,7 +393,7 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "up":
                             bulletDirection = "left";
-                            console.log(bulletDirection);
+                            
                             break;
                         case "right":
                             bulletDirection = "down";
@@ -421,7 +422,7 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "down":
                             bulletDirection = "left";
-                            console.log(bulletDirection);
+                            
                             break;
                         case "right":
                             bulletDirection = "up";
@@ -462,13 +463,25 @@ function shootCannon(cell) {
                 gamePaused=false;
             }
         }
-        
-        targetCell.classList.add("bullet");
-
+        if(3-currentplayer===1){
+            targetCell.classList.add("bullet1");
+            targetCell.classList.add(bulletDirection);
+        }
+        else{
+            targetCell.classList.add("bullet2");
+            targetCell.classList.add(bulletDirection);
+        }
         setTimeout(() => {
-            targetCell.classList.remove("bullet"); 
-        }, 100);
-    }, 100);
+            if(3-currentplayer===1){
+                targetCell.classList.remove("bullet1");
+                targetCell.classList.remove(bulletDirection);
+            }
+            else{
+                targetCell.classList.remove("bullet2");
+                targetCell.classList.remove(bulletDirection);
+            } 
+        }, 200);
+    }, 200);
 }
 
 function displayRotate(){
@@ -481,32 +494,79 @@ function rotateRight(){
     let direct = Number(selectedPiece.getAttribute("data-rotation"));
     if(direct>=4){direct=1;}
     else{direct++}
+    if(selectedPiece.getAttribute("data-rico")===true){
+        if(currentplayer===1){blueHistory.push(`BRicochet(RR)`)}
+        else{redHistory.push(`RRicochet(RR)`)}
+    }
+    else{
+        if(currentplayer===1){blueHistory.push(`BSemi-Ricochet(RR)`)}
+        else{redHistory.push(`RSemi-Ricochet(RR)`)}
+    }
     selectedPiece.setAttribute("data-rotation",direct)
     shootCannons(currentplayer);
     currentplayer = 3 - currentplayer;
-    let unhigh = document.getElementsByClassName("square");
-    Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
-    selectedPiece = null;
+    unhighlight();
 }
 function rotateLeft(){
     let direct = selectedPiece.getAttribute("data-rotation");
     if(direct<=1){direct=4;}
     else{direct--}
+    if(selectedPiece.getAttribute("data-rico")===true){
+        if(currentplayer===1){blueHistory.push(`BRicochet(LR)`)}
+        else{redHistory.push(`RRicochet(LR)`)}
+    }
+    else{
+        if(currentplayer===1){blueHistory.push(`BSemi-Ricochet(LR)`)}
+        else{redHistory.push(`RSemi-Ricochet(LR)`)}
+    }
     selectedPiece.setAttribute("data-rotation",direct)
     shootCannons(currentplayer);
     currentplayer = 3 - currentplayer;
+    unhighlight();
+}
+let blueHistory=[];
+let redHistory = [];
+let lastmove=[];
+function logmove(initial,final,p){
+    if(final.getAttribute("data-tank") === "true"){
+        if(p === 1){blueHistory.push(`B-Tank[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+        else {redHistory.push(`R-Tank[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+    }
+    else if(final.getAttribute("data-titan") === "true"){
+        if(p === 1){blueHistory.push(`B-Titan[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+        else {redHistory.push(`R-Titan[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+    }
+    else if(final.getAttribute("data-rico") === "true"){
+        if(p === 1){blueHistory.push(`B-Ricochet[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+        else {redHistory.push(`R-Ricochet[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+    }
+    else if(final.getAttribute("data-srico") === "true"){
+        if(p === 1){blueHistory.push(`B-Semi-ricochet[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+        else {redHistory.push(`R-Semi-Ricochet[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+    }
+    else if(final.getAttribute("data-cannon") === "true"){
+        if(p === 1){blueHistory.push(`B-Cannon[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+        else {redHistory.push(`R-Cannon[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
+    }
+}
+
+function unhighlight(){
     let unhigh = document.getElementsByClassName("square");
     Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
     selectedPiece = null;
+    let bluelist = document.getElementById("blueHistory");
+    bluelist.innerHTML = "";
+    blueHistory.forEach((item) => {
+        let li = document.createElement("li");
+        li.innerText = item;
+        bluelist.appendChild(li);
+    });
+
+    let redlist = document.getElementById("redHistory");
+    redlist.innerHTML = "";
+    redHistory.forEach((item) => {
+        let li = document.createElement("li");
+        li.innerText = item;
+        redlist.appendChild(li);
+    });
 }
-let history=[];
-let lastmove=[];
-/*function logmove(initial,final){
-    if(cell.getAttribute("data-tank") === "true"){
-        history.push()
-    }
-    else if(cell.getAttribute("data-titan") === "true"){}
-    else if(cell.getAttribute("data-rico") === "true"){}
-    else if(cell.getAttribute("data-srico") === "true"){}
-    else if(cell.getAttribute("data-cannon") === "true"){}
-}*/

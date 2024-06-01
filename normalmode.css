@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
 :root {
   --size:      520px;
   --backcolor: darkslategray;
@@ -11,7 +13,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   height: 100vh;
   font-family: Arial, sans-serif;
@@ -39,21 +41,48 @@ body {
   border-radius: 0.5rem;
 }
 .white, .black{
-  background: rgb(255,255,255,0.5);
+  background:rgb(255,255,255,0.5);
 }
 
 [data-highlight="true"]{
   background: rgb(13, 95, 13);
 }
-.bullet{
-  animation-name: bull;
-  animation-duration:0.2s;
+
+.bullet1{
+  animation-name:bluebullet;
+  animation-duration: 0.2s;
+  
 }
-@keyframes bull{
-  0%{background-image: url(./assets/bullet.png);background-size:cover;}
-  50%{background-image: url(./assets/bullet.png);background-size:cover;}
-  100%{background-image: url(./assets/bullet.png);background-size:cover;}
+
+.bullet2{
+  animation-name:redbullet;
+  animation-duration: 0.2s;
 }
+.down{
+  transform:rotate(180deg);
+}
+/*.up{
+
+}*/
+.left{
+  transform:rotate(270deg);
+}
+.right{
+  transform:rotate(90deg);
+}
+@keyframes bluebullet{
+  0%{background-image:url(./assets/yugesh_assests/blue-bullet/bullet-blue-pos-1.png);background-size:cover;}
+  33%{background-image:url(./assets/yugesh_assests/blue-bullet/bullet-blue-pos-2.png);background-size:cover;}
+  66%{background-image:url(./assets/yugesh_assests/blue-bullet/bullet-blue-pos-3.png);background-size:cover;}
+  100%{background-image:url(./assets/yugesh_assests/blue-bullet/bullet-blue-pos-4.png);background-size:cover;}
+}
+@keyframes redbullet{
+  0%{background-image:url(./assets/yugesh_assests/red-bullet/bullet-red-pos-1.png);background-size:cover;}
+  33%{background-image:url(./assets/yugesh_assests/red-bullet/bullet-red-pos-2.png);background-size:cover;}
+  66%{background-image:url(./assets/yugesh_assests/red-bullet/bullet-red-pos-3.png);background-size:cover;}
+  100%{background-image:url(./assets/yugesh_assests/red-bullet/bullet-red-pos-4.png);background-size:cover;}
+}
+
 /*--------------------------------------pieces--------------------------------------------*/
 .player1-cannon{
   background-image: url(./assets/yugesh_assests/cannon-blue.png); 
@@ -63,6 +92,7 @@ body {
 .player1-titan{
   background-image: url(./assets/yugesh_assests/titan-blue.png); 
   background-size: cover;
+  transform: rotate(180deg);
 }
 .player1-rico[data-rotation="1"]{
   background-image: url(./assets/yugesh_assests/ricochet-blue.png);
@@ -230,4 +260,74 @@ body {
 }
 .popup.active {
   display: block;
+}
+
+/*.player1-rico.bullet1[data-rotation="1"],.player1-rico.bullet1[data-rotation="3"]{
+  background-image: url(./assets/yugesh_assests/blue-bullet-blue-ricochet.gif)!important;
+  background-size:cover;
+  transform: rotateY(180deg)
+}
+.player2-rico.bullet1[data-rotation="1"], .player2-rico.bullet1[data-rotation="3"]{
+  background-image: url(./assets/yugesh_assests/blue-bullet-red-ricochet.gif)!important;
+  background-size:cover;
+  transform: rotateY(180deg)
+}
+.player1-rico.bullet2[data-rotation="1"], .player1-rico.bullet2[data-rotation="3"]{
+  background-image: url(./assets/yugesh_assests/red-bullet-blue-ricochet.gif)!important;
+  background-size:cover;
+  transform: rotateY(180deg)
+}
+.player2-rico.bullet2[data-rotation="1"], .player2-rico.bullet2[data-rotation="3"]{
+  background-image: url(./assets/yugesh_assests/red-bullet-red-ricochet.gif)!important;
+  background-size:cover;
+  transform: rotateY(180deg)
+}
+.player1-rico.bullet1[data-rotation="2"],.player1-rico.bullet1[data-rotation="4"]{
+  background-image: url(./assets/yugesh_assests/blue-bullet-blue-ricochet.gif)!important;
+  background-size:cover;
+}
+.player2-rico.bullet1[data-rotation="2"], .player2-rico.bullet1[data-rotation="4"]{
+  background-image: url(./assets/yugesh_assests/blue-bullet-red-ricochet.gif)!important;
+  background-size:cover;
+}
+.player1-rico.bullet2[data-rotation="2"], .player1-rico.bullet2[data-rotation="4"]{
+  background-image: url(./assets/yugesh_assests/red-bullet-blue-ricochet.gif)!important;
+  background-size:cover;
+}
+.player2-rico.bullet2[data-rotation="2"], .player2-rico.bullet2[data-rotation="4"]{
+  background-image: url(./assets/yugesh_assests/red-bullet-red-ricochet.gif)!important;
+  background-size:cover;
+}*/
+
+.displayHistory{
+  background:black;
+  height:auto;
+  width:600px;
+  margin:auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+}
+#blueHistory{
+  size:50%;
+  color:blue;
+  background:rgb(255,255,255);
+  border:3px white solid;
+  border-radius: 5px;
+  margin:5px;
+  font-family: sans-serif;
+  font-size:12px;
+  font-weight:bold;
+}
+#redHistory{
+  size:50%;
+  color:red;
+  background:rgb(255,255,255);
+  border:3px white solid;
+  border-radius: 5px;
+  margin:5px;
+  font-family: sans-serif;
+  font-size:12px;
+  font-weight:bold;
 }
