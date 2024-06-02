@@ -9,6 +9,7 @@ let timers = {1: 180, 2: 180};
 let timerInterval = null;
 let gamePaused = false;
 let GameHistory=[];
+let prevMoves = [];
 
 if(localStorage.getItem(`Game1`)===null){gameNumber=1}
 else(gameNumber = Number(localStorage.getItem(`game`)))
@@ -172,7 +173,6 @@ function movePiece(targetCell) {
     logmove(selectedPiece,targetCell,Number(player));
 
     
-
     pieceTypes.forEach(piece => {
         selectedPiece.classList.remove(`player${player}-${piece}`);
         if (targetCell.getAttribute(`data-${piece}`) === "true") {
@@ -252,7 +252,7 @@ function resetBoard() {
 
 function declareWinner(player) {
     clearInterval(timerInterval);
-    document.getElementById("winner-message").textContent = `Player ${player} wins!`;
+    document.getElementById("winner-message").textContent = player===1?`Blue wins!`:`Red wins!`;
     document.getElementById("winner-popup").classList.add("active");
     
     gamePaused=true;
@@ -300,9 +300,19 @@ function shootCannon(cell) {
         }
 
         if (targetCell.getAttribute("data-tank") === "true") {
-            clearInterval(bulletInterval);
-            gamePaused=false;
-            return;
+            if(targetCell.getAttribute("data-player")==="1" && bulletDirection==="down"){
+                gamePaused=false;
+            }
+            else if(targetCell.getAttribute("data-player")==="2" && bulletDirection==="up"){
+                gamePaused=false;
+            }
+            else{
+                console.log(bulletDirection);
+                clearInterval(bulletInterval);
+                gamePaused=false;
+                return;
+            }
+            
         }
 
         if (targetCell.getAttribute("data-rico") === "true") {
@@ -543,7 +553,7 @@ function rotateLeft(){
 }
 
 let blueHistory=[];
-let redHistory = [];
+let redHistory=[];
 
 function logmove(initial,final,p){
     if(final.getAttribute("data-tank") === "true"){
@@ -591,5 +601,5 @@ function unhighlight(){
 
 function undo(){
     let lastmove = String(GameHistory.pop());
-    
+    console.log(lastmove);
 }

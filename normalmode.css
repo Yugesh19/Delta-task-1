@@ -16,7 +16,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family:Arial, sans-serif;
   background-image: url(./assets/yugesh_assests/background-main.png);
   background-size: cover;
   background-position: center;
@@ -249,14 +249,19 @@ body {
 .popup {
   display: none;
   position: fixed;
+  size:50px;
+  position:fixed;
   left: 50%;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%, -50%);
-  background: white;
+  background:rgb(0, 0, 0, 0.7);
   padding: 20px;
   border: 2px solid black;
+  border-radius:5px;
   text-align: center;
+  color:white;
   z-index: 1000;
+  font-family: "Pixelify Sans";
 }
 .popup.active {
   display: block;
