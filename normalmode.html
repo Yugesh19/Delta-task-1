@@ -7,34 +7,35 @@
 </head>
 <body>
     <div class="outline">
-        <div data-timer="player1">5:00</div>
+        <div data-timer="player1">3:00</div>
         <div id="board"></div>
-        <div data-timer="player2">5:00</div>
-    </div>
-    <div class="rotation-controls">
-        <button id="rotate-left" onclick = "rotateLeft()">Rotate Left</button>
-        <button id="rotate-right" onclick = "rotateRight()">Rotate Right</button>
-    </div>
-    <div class="control-buttons">
-        <button onclick="pauseTimer()">Pause</button>
-        <button onclick="resumeTimer()">Resume</button>
-        <button onclick="resetGame()">Reset</button>
-    </div>
-    <div class="current-player" id="current-player">Current Player: 1</div>
-    <div class="popup" id="winner-popup">
-        <p id="winner-message"></p>
-        <button onclick="resetGame()">Play Again</button>
-    </div>
-    <div class="displayHistory">
-        <div>
-            <ul id="blueHistory">
-            </ul>
+        <div data-timer="player2">3:00</div>
+        <div class="rotation-controls">
+            <button id="rotate-left" onclick = "rotateLeft()">Rotate Left</button>
+            <button id="rotate-right" onclick = "rotateRight()">Rotate Right</button>
         </div>
-        <div>
-            <ul id="redHistory">
-            </ul>
+        <div class="control-buttons">
+            <button onclick="pauseTimer()">Pause</button>
+            <button onclick="resumeTimer()">Resume</button>
+            <button onclick="resetGame()">Reset</button>
+        </div>
+        <div class="current-player" id="current-player">Current Player: 1</div>
+        <div class="popup" id="winner-popup">
+            <p id="winner-message"></p>
+            <button onclick="resetGame()">Play Again</button>
+        </div>
+        <div class="displayHistory">
+            <div>
+                <ul id="blueHistory">
+                </ul>
+            </div>
+            <div>
+                <ul id="redHistory">
+                </ul>
+            </div>
         </div>
     </div>
+    
     
     <script src = "normalmode.js"></script>
     <link href="normalmode.css" rel="stylesheet"></link>

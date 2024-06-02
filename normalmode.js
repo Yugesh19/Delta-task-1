@@ -5,9 +5,13 @@ let a = 1;
 let coords = [];
 let currentplayer = 1;
 let selectedPiece = null;
-let timers = {1: 300, 2: 300};
+let timers = {1: 180, 2: 180};
 let timerInterval = null;
 let gamePaused = false;
+let GameHistory=[];
+
+if(localStorage.getItem(`Game1`)===null){gameNumber=1}
+else(gameNumber = Number(localStorage.getItem(`game`)))
 
 boardCreator();
 
@@ -49,8 +53,8 @@ startTimer();
 
 function setInitialPieces() {
     gamePaused=false;
-    document.querySelector(`[data-timer="player1"]`).textContent = `5:00`;
-    document.querySelector(`[data-timer="player2"]`).textContent = `5:00`;
+    document.querySelector(`[data-timer="player1"]`).textContent = `3:00`;
+    document.querySelector(`[data-timer="player2"]`).textContent = `3:00`;
     setPiece(1, 4, 'cannon', 1);
     setPiece(8, 5, 'cannon', 2);
 
@@ -209,9 +213,21 @@ function resumeTimer() {
 }
 
 function resetGame() {
-    clearInterval(timerInterval);
-    timers = {1: 300, 2: 300};
     
+    unhighlight();
+    clearInterval(timerInterval);
+    timers = {1: 180, 2: 180};
+
+    
+    for(let i=0;i<blueHistory.length;i++){
+        GameHistory.push(`${blueHistory[i]},`);
+        GameHistory.push(`${redHistory[i]},`);
+    }
+    localStorage.setItem(`Game${gameNumber}`,GameHistory);
+    gameNumber+=1;
+    localStorage.setItem("game",gameNumber);
+    blueHistory=[];
+    redHistory=[];
     currentplayer = 1;
     document.getElementById("current-player").textContent = `Current Player: 1`;
     resetBoard();
@@ -238,6 +254,7 @@ function declareWinner(player) {
     clearInterval(timerInterval);
     document.getElementById("winner-message").textContent = `Player ${player} wins!`;
     document.getElementById("winner-popup").classList.add("active");
+    
     gamePaused=true;
 }
 
@@ -524,9 +541,10 @@ function rotateLeft(){
     currentplayer = 3 - currentplayer;
     unhighlight();
 }
+
 let blueHistory=[];
 let redHistory = [];
-let lastmove=[];
+
 function logmove(initial,final,p){
     if(final.getAttribute("data-tank") === "true"){
         if(p === 1){blueHistory.push(`B-Tank[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);}
@@ -569,4 +587,9 @@ function unhighlight(){
         li.innerText = item;
         redlist.appendChild(li);
     });
+}
+
+function undo(){
+    let lastmove = String(GameHistory.pop());
+    
 }
