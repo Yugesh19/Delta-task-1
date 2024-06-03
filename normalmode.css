@@ -36,7 +36,6 @@ body {
   border-color: var(--backcolor);
   border-radius: 0.5rem;
   margin:auto;
-  
 }
 .square {
   border: 1px black solid;
@@ -53,7 +52,6 @@ body {
 .bullet1{
   animation-name:bluebullet;
   animation-duration: 0.2s;
-  
 }
 
 .bullet2{
@@ -272,7 +270,7 @@ body {
 .popup {
   display: none;
   position: fixed;
-  size:50px;
+  size:80px;
   position:fixed;
   left: 50%;
   top: 40%;
@@ -361,4 +359,10 @@ body {
 }
 .transparentHighlight{
   background: linear-gradient(rgba(30, 151, 14, 0.5), rgba(0,0,0,.5))!important;
+}
+.playagain{
+  background: rgba(0, 0, 0, 0.801);
+  color:white;
+  font-family:"Pixelify sans",sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
+  text-align: center;
 }

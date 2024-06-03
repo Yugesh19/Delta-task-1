@@ -13,10 +13,10 @@
         <button class="game-button options" onclick="openOptions()">Options</button>
     </div>
 
+
     <!--------------------options box-------------------->
 
     <div id="options-box" class="options-box">
-        
         <div class="option">
             <span>Option 1</span>
             <label class="switch">
@@ -56,22 +56,7 @@
     </div>
 
     <link href="homepagestyles.css" rel="stylesheet">
-    <script>
-        function startGame() {
-            setTimeout(()=>window.location.href="normalmode.html",500);
-        }
-
-        function loadGame() {
-            setTimeout(()=>window.location.href="",500);
-        }
-
-        function openOptions() {
-            document.getElementById("options-box").style.display = "block";
-        }
-
-        function closeOptions() {
-            document.getElementById("options-box").style.display = "none";
-        }
+    <script src="homepage.js" defer>
     </script>
 </body>
 </html>

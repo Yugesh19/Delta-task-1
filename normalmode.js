@@ -12,6 +12,19 @@ let GameHistory=[];
 let prevMoves=[];
 let swapPiece=false;
 let selectedRico=null;
+let gamewon=false;
+
+const bgmusic = new Audio("audio/2-main-bg-music.mp3")
+const fire = new Audio("audio/3-plasma-gun-fire.mp3")
+const ricosound = new Audio("audio/4-ricochet.mp3")
+const sricosound = new Audio("audio/5-semi-ricochet-death.mp3")
+const tanksound = new Audio("audio/6-tank.mp3")
+const winneraudio = new Audio("audio/7-winner-audio.mp3")
+
+window.addEventListener("click",()=>{
+    bgmusic.play();
+    bgmusic.loop=true;
+})
 
 if(localStorage.getItem(`Game1`)===null){gameNumber=1}
 else(gameNumber = Number(localStorage.getItem(`game`)))
@@ -55,6 +68,11 @@ setInitialPieces();
 startTimer();
 
 function setInitialPieces() {
+    gamewon=false;
+    winneraudio.pause()
+    winneraudio.currentTime=0;
+    bgmusic.play()
+    bgmusic.loop = true;
     gamePaused=false;
     document.querySelector(`[data-timer="player1"]`).textContent = `3:00`;
     document.querySelector(`[data-timer="player2"]`).textContent = `3:00`;
@@ -215,11 +233,14 @@ function updateTimerDisplay() {
 function pauseTimer() {
     gamePaused = true;
     clearInterval(timerInterval);
+    bgmusic.pause();
 }
 
 function resumeTimer() {
+    if(gamewon){return}
     gamePaused = false;
     startTimer();
+    bgmusic.play();
 }
 
 function resetGame() {
@@ -260,6 +281,9 @@ function resetBoard() {
 }
 
 function declareWinner(player) {
+    gamewon=true;
+    bgmusic.pause()
+    winneraudio.play()
     clearInterval(timerInterval);
     document.getElementById("winner-message").textContent = player===1?`Blue wins!`:`Red wins!`;
     document.getElementById("winner-popup").classList.add("active");
@@ -279,6 +303,8 @@ function shootCannon(cell) {
     let row = Number(cell.getAttribute("data-row"));
     let col = Number(cell.getAttribute("data-col"));
     let bulletDirection = currentplayer === 1 ? "down":"up";
+    fire.play();
+    fire.playbackRate=6;
     let bulletInterval = setInterval(() => {
         switch(bulletDirection){
             case "up":
@@ -316,7 +342,7 @@ function shootCannon(cell) {
                 gamePaused=false;
             }
             else{
-                console.log(bulletDirection);
+                tanksound.play();
                 clearInterval(bulletInterval);
                 gamePaused=false;
                 return;
@@ -325,6 +351,7 @@ function shootCannon(cell) {
         }
 
         if (targetCell.getAttribute("data-rico") === "true") {
+            ricosound.play();
             let direction = Number(targetCell.getAttribute("data-rotation"));
             if(direction===1||direction===3){
                 switch(bulletDirection){
@@ -371,12 +398,14 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "down":
                             bulletDirection = "right";
-                            
+                            ricosound.play();
                             break;
                         case "left":
                             bulletDirection = "up";
+                            ricosound.play();
                             break;
                         case "right":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -387,6 +416,7 @@ function shootCannon(cell) {
                             targetCell.setAttribute("data-player",0);
                             break;
                         case "up":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -402,12 +432,14 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "up":
                             bulletDirection = "right";
-                            
+                            ricosound.play();
                             break;
                         case "left":
                             bulletDirection = "down";
+                            ricosound.play();
                             break;
                         case "right":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -418,6 +450,7 @@ function shootCannon(cell) {
                             targetCell.setAttribute("data-player",0);
                             break;
                         case "down":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -433,12 +466,14 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "up":
                             bulletDirection = "left";
-                            
+                            ricosound.play();
                             break;
                         case "right":
                             bulletDirection = "down";
+                            ricosound.play();
                             break;
                         case "left":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -449,6 +484,7 @@ function shootCannon(cell) {
                             targetCell.setAttribute("data-player",0);
                             break;
                         case "down":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -464,12 +500,14 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "down":
                             bulletDirection = "left";
-                            
+                            ricosound.play();
                             break;
                         case "right":
                             bulletDirection = "up";
+                            ricosound.play();
                             break;
                         case "left":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -480,6 +518,7 @@ function shootCannon(cell) {
                             targetCell.setAttribute("data-player",0);
                             break;
                         case "up":
+                            sricosound.play()
                             destroylog(p,targetCell);
                             clearInterval(bulletInterval);
                             gamePaused=false;
@@ -524,8 +563,8 @@ function shootCannon(cell) {
                 targetCell.classList.remove("bullet2");
                 targetCell.classList.remove(bulletDirection);
             } 
-        }, 200);
-    }, 200);
+        }, 400);
+    }, 400);
 }
 
 function displayRotate(){
