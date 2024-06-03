@@ -34,7 +34,7 @@ Arjun, a tech enthusiast, was bored of playing chess. So he asked his nerd frien
 - [ ]  Implement the feature to undo and redo the moves.
 - [x]  Make the bullet destroy semi Ricochets when hit in the non reflecting surface.
 - [x]  Display the history of moves of each player. Store the history once the game ends in local storage.
-- [ ]  Add game sound effects.
+- [x]  Add game sound effects.
 - [x]  Make the cannon shoot a Directional bullet (you can use an asset)
 - [ ]  Make the Ricochets swap with any piece (opponent's piece, too) except the Titans.
 - [x]  Make the tanks to allow the bullets to pass through from any one side.
