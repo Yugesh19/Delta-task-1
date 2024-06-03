@@ -563,8 +563,8 @@ function shootCannon(cell) {
                 targetCell.classList.remove("bullet2");
                 targetCell.classList.remove(bulletDirection);
             } 
-        }, 400);
-    }, 400);
+        }, 200);
+    }, 200);
 }
 
 function displayRotate(){
@@ -638,18 +638,18 @@ function logmove(initial,final,p){
     }
     else if(final.getAttribute("data-rico") === "true"){
         if(p === 1){
-            blueHistory.push(`B-Ricochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);
+            blueHistory.push(`B-Ricochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]-${final.getAttribute("data-rotation")}`);
         }
         else {
-            redHistory.push(`R-Ricochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);
+            redHistory.push(`R-Ricochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]-${final.getAttribute("data-rotation")}`);
         }
     }
     else if(final.getAttribute("data-srico") === "true"){
         if(p === 1){
-            blueHistory.push(`B-SemiRicochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);
+            blueHistory.push(`B-SemiRicochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]-${final.getAttribute("data-rotation")}`);
         }
         else {
-            redHistory.push(`R-SemiRicochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]`);
+            redHistory.push(`R-SemiRicochet-[${Number(initial.getAttribute("data-row"))}],[${Number(initial.getAttribute("data-col"))}]-[${Number(final.getAttribute("data-row"))}],[${Number(final.getAttribute("data-col"))}]-${final.getAttribute("data-rotation")}`);
         }
     }
     else if(final.getAttribute("data-cannon") === "true"){
@@ -682,16 +682,18 @@ function unhighlight(){
         redlist.appendChild(li);
     });
 }
-
-/*function undo(){
+let undonemoves=[];
+function undo(){
     let r1;
     let c1;
     let r2;
     let c2;
     if(currentplayer===1){
+        if(redHistory.length<=0){return;}
         lastmove=String(redHistory.pop());
     }
     else{
+        if(blueHistory.length<=0){return;}
         lastmove=String(blueHistory.pop());
     }
     Ulastmove=split(lastmove,'-');
@@ -771,11 +773,13 @@ function unhighlight(){
                             e.setAttribute("data-rico",true);
                             e.setAttribute("data-player",1)
                             e.classList.add("player1-rico");
+                            e.setAttribute("data-rotation",Ulastmove[4])
                         }
                         if(e.getAttribute("data-row")===r2 && e.getAttribute("data-col")===c2){
                             e.setAttribute("data-rico",false);
                             e.setAttribute("data-player",0)
                             e.classList.remove("player1-rico");
+                            e.removeAttribute("data-rotation");
                         }
                     })
                 }
@@ -800,7 +804,7 @@ function unhighlight(){
                                 if(dir>=4){dir=1;}
                                 else{dir++}
                                 e.setAttribute("data-rotation",dir)
-                                undo();
+                                
                             }
                         })
                         
@@ -815,6 +819,7 @@ function unhighlight(){
                             e.setAttribute("data-player",1);
                             e.classList.add("player1-srico");
                             e.setAttribute("data-rotation",Ulastmove[4])
+                            undo();
                         }
                     })
                 }
@@ -828,11 +833,13 @@ function unhighlight(){
                             e.setAttribute("data-srico",true);
                             e.setAttribute("data-player",1)
                             e.classList.add("player1-srico");
+                            e.setAttribute("data-rotation",Ulastmove[4])
                         }
                         if(e.getAttribute("data-row")===r2 && e.getAttribute("data-col")===c2){
                             e.setAttribute("data-srico",false);
                             e.setAttribute("data-player",0)
                             e.classList.remove("player1-srico");
+                            e.removeAttribute("data-rotation")
                         }
                     })
                 }
@@ -933,11 +940,13 @@ function unhighlight(){
                             e.setAttribute("data-rico",true);
                             e.setAttribute("data-player",2)
                             e.classList.add("player2-rico");
+                            e.setAttribute("data-rotation",Ulastmove[4])
                         }
                         if(e.getAttribute("data-row")===r2 && e.getAttribute("data-col")===c2){
                             e.setAttribute("data-rico",false);
                             e.setAttribute("data-player",0)
                             e.classList.remove("player2-rico");
+                            e.removeAttribute("data-rotation")
                         }
                     })
                 }
@@ -976,6 +985,7 @@ function unhighlight(){
                             e.setAttribute("data-player",2);
                             e.classList.add("player2-srico");
                             e.setAttribute("data-rotation",Ulastmove[4])
+                            
                         }
                     })
                 }
@@ -989,11 +999,13 @@ function unhighlight(){
                             e.setAttribute("data-srico",true);
                             e.setAttribute("data-player",2)
                             e.classList.add("player2-srico");
+                            e.setAttribute("data-rotation",Ulastmove[4])
                         }
                         if(e.getAttribute("data-row")===r2 && e.getAttribute("data-col")===c2){
                             e.setAttribute("data-srico",false);
                             e.setAttribute("data-player",0)
                             e.classList.remove("player2-srico");
+                            e.removeAttribute("data-rotation")
                         }
                     })
                 }
@@ -1020,11 +1032,55 @@ function unhighlight(){
                 break;
         }
     }
-}*/
-
-function redo(){
-
+    undonemoves.push(Ulastmove);
+    currentplayer = 3-currentplayer;
+    console.log(undonemoves)
 }
+let tar;
+
+/*function redo(){
+    if(undonemoves.length<=0){return;}
+    prevundo = undonemoves.pop();
+    console.log(undonemoves);
+    if(prevundo.length<5){
+        if(Ulastmove[2]==='(RR)'){
+            Array.from(document.querySelectorAll(".square")).forEach(e => {
+                if(e.getAttribute("data-row")===Ulastmove[3][1] && e.getAttribute("data-col")===Ulastmove[3][5]){
+                        selectedPiece = e;
+                        rotateRight();
+                    }
+            })
+        }
+        if(Ulastmove[2]==='(LR)'){
+            Array.from(document.querySelectorAll(".square")).forEach(e => {
+                if(e.getAttribute("data-row")===Ulastmove[3][1] && e.getAttribute("data-col")===Ulastmove[3][5]){
+                    selectedPiece = e;
+                    rotateLeft();
+                }
+            })
+            
+        }
+        }
+    else if(Ulastmove[3]==='XX'){
+        redo();
+        return;
+    }
+    else{
+        rr1 = Ulastmove[2][1];
+        rc1 = Ulastmove[2][5];
+        rr2=Ulastmove[3][1];
+        rc2=Ulastmove[3][5];
+        Array.from(document.querySelectorAll(".square")).forEach(e => {
+            if(e.getAttribute("data-row")===rr1 && e.getAttribute("data-col")===rc1){
+                selectedPiece = e;
+            }
+            if(e.getAttribute("data-row")===rr2 && e.getAttribute("data-col")===rc2){
+                tar = e;
+            }
+        })
+        movePiece(tar);
+    }
+}*/
 
 function split(word,sep){
     let splitString = [];
