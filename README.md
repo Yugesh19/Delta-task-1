@@ -33,16 +33,16 @@ Arjun, a tech enthusiast, was bored of playing chess. So he asked his nerd frien
 
 - [ ]  Implement the feature to undo and redo the moves.
 - [x]  Make the bullet destroy semi Ricochets when hit in the non reflecting surface.
-- [ ]  Display the history of moves of each player. Store the history once the game ends in local storage.
+- [x]  Display the history of moves of each player. Store the history once the game ends in local storage.
 - [ ]  Add game sound effects.
-- [ ]  Make the cannon shoot a Directional bullet (you can use an asset)
+- [x]  Make the cannon shoot a Directional bullet (you can use an asset)
 - [ ]  Make the Ricochets swap with any piece (opponent's piece, too) except the Titans.
-- [ ]  Make the tanks to allow the bullets to pass through from any one side.
+- [x]  Make the tanks to allow the bullets to pass through from any one side.
 
 ### HackerMode++
 
 - [ ]  Using the stored game history, implement a game replay feature.
 - [x]  Randomized Playable starting position.
-- [ ]  Animate the game movements (For e.g., smoother bullets)
+- [x]  Animate the game movements (For e.g., smoother bullets)
 - [ ]  Create a single-player mode where the opponent is a bot.
 - [ ]  Add spells (For eg: spell which makes a piece passthrough for a move)
