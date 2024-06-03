@@ -67,6 +67,7 @@ document.querySelector("div#board").appendChild(table);
 setInitialPieces();
 startTimer();
 
+
 function setInitialPieces() {
     gamewon=false;
     winneraudio.pause()
