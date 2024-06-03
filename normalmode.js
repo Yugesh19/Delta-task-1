@@ -352,6 +352,7 @@ function shootCannon(cell) {
         }
 
         if (targetCell.getAttribute("data-rico") === "true") {
+            ricosound.currentTime=0;
             ricosound.play();
             let direction = Number(targetCell.getAttribute("data-rotation"));
             if(direction===1||direction===3){
@@ -399,10 +400,12 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "down":
                             bulletDirection = "right";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "left":
                             bulletDirection = "up";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "right":
@@ -433,10 +436,12 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "up":
                             bulletDirection = "right";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "left":
                             bulletDirection = "down";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "right":
@@ -467,10 +472,12 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "up":
                             bulletDirection = "left";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "right":
                             bulletDirection = "down";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "left":
@@ -501,10 +508,12 @@ function shootCannon(cell) {
                     switch(bulletDirection){
                         case "down":
                             bulletDirection = "left";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "right":
                             bulletDirection = "up";
+                            ricosound.currentTime=0;
                             ricosound.play();
                             break;
                         case "left":
