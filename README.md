@@ -31,7 +31,7 @@ Arjun, a tech enthusiast, was bored of playing chess. So he asked his nerd frien
 
 ### HackerMode
 
-- [ ]  Implement the feature to undo and redo the moves.
+- [x]  Implement the feature to undo ~and redo the moves~.(Redo has bugs)
 - [x]  Make the bullet destroy semi Ricochets when hit in the non reflecting surface.
 - [x]  Display the history of moves of each player. Store the history once the game ends in local storage.
 - [x]  Add game sound effects.
