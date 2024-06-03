@@ -136,16 +136,16 @@ function checkPiece(cell) {
     if (check) {
         if(cell.getAttribute("data-rico") === "true" || cell.getAttribute("data-srico") === "true"){
             displayRotate();
-            if(cell.getAttribute("data-rico") === "true"){
+            /*if(cell.getAttribute("data-rico") === "true"){
                 displaySwap();
             }
             else{
                 removeSwap();
-            }
+            }*/
         }
         else{
             removeRotate();
-            removeSwap();
+            /*removeSwap();*/
         }
         let unhigh = document.getElementsByClassName("square");
         Array.from(unhigh).forEach(element => element.setAttribute("data-highlight", false));
