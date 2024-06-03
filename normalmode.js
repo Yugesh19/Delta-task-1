@@ -10,7 +10,7 @@ let timerInterval = null;
 let gamePaused = false;
 let GameHistory=[];
 let prevMoves=[];
-let swapPiece=false;
+/*let swapPiece=false;*/
 let selectedRico=null;
 let gamewon=false;
 
@@ -574,12 +574,12 @@ function displayRotate(){
 function removeRotate(){
     document.querySelector(".rotation-controls").style.display = "none";
 }
-function displaySwap(){
+/*function displaySwap(){
     document.querySelector(".swap").style.display = "block";
 }
 function removeSwap(){
     document.querySelector(".swap").style.display = "none";
-}
+}*/
 function rotateRight(){
     let direct = Number(selectedPiece.getAttribute("data-rotation"));
     if(direct>=4){direct=1;}
@@ -1107,7 +1107,7 @@ function destroylog(p,t){
     }
     unhighlight();
 }
-function swap(){
+/*function swap(){
     swapPiece=false?true:false;
     unhighlight();
     Array.from(document.getElementsByClassName("square")).forEach(e=>{
@@ -1125,4 +1125,4 @@ function swap(){
     })
 
     removeSwap();
-}
+}*/
